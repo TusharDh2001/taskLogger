@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FlowDesk — AI Productivity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080810;--surface:#10101c;--card:#16162a;--border:#252540;
+  --accent:#7c6fff;--green:#00e5a0;--amber:#ffb84d;--red:#ff5577;
+  --text:#ece9ff;--muted:#5a5880;--subtle:#1e1e35;
+}
+body{min-height:100vh;background:var(--bg);color:var(--text);
+  font-family:'DM Sans',system-ui,sans-serif;padding-bottom:60px}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+input,textarea{outline:none;font-family:inherit}
+button{font-family:inherit;cursor:pointer}
+@keyframes fadeIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.header{position:sticky;top:0;z-index:50;background:rgba(8,8,16,.92);
+  backdrop-filter:blur(18px);border-bottom:1px solid var(--border);
+  padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.brand-sub{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+.brand{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.header-right{display:flex;gap:8px;align-items:center}
+.view-toggle{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px;display:flex;gap:2px}
+.view-btn{padding:6px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;transition:all .2s;background:transparent;color:var(--muted)}
+.view-btn.active{background:var(--accent);color:#fff}
+.bell-btn{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:7px 10px;color:var(--text);font-size:15px}
+
+.main{padding:0 20px;max-width:660px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;animation:fadeIn .4s ease both}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+
+.status-banner{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:10px 14px;margin-bottom:14px;font-size:12px;line-height:1.6;
+  display:flex;align-items:flex-start;gap:8px}
+.status-banner.ok  {border-color:#00e5a044;background:#00e5a010}
+.status-banner.err {border-color:#ff557744;background:#ff557710}
+.status-banner.warn{border-color:#ffb84d44;background:#ffb84d10}
+
+.voice-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.mic-btn{width:58px;height:58px;border-radius:50%;border:none;flex-shrink:0;
+  font-size:22px;transition:all .25s;display:flex;align-items:center;justify-content:center}
+.mic-btn.idle     {background:radial-gradient(circle,var(--green),#009b6e);box-shadow:0 0 18px #00e5a044}
+.mic-btn.recording{background:radial-gradient(circle,var(--red),#a01535);box-shadow:0 0 28px #ff557766;animation:pulse 1.4s ease infinite}
+.mic-btn.loading  {background:var(--subtle);box-shadow:none;cursor:not-allowed}
+
+.waveform{display:flex;align-items:center;gap:3px;height:34px}
+.wave-bar{width:3px;border-radius:99px;background:var(--muted);transition:height .12s ease}
+.wave-bar.active{background:var(--green)}
+.mic-status{font-size:12px;margin-top:5px;min-height:18px;color:var(--muted)}
+.mic-status.rec {color:var(--green)}
+.mic-status.proc{color:var(--amber)}
+
+.transcript-area{width:100%;min-height:90px;background:var(--surface);
+  border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+  color:var(--text);font-size:13px;line-height:1.65;resize:vertical;margin-bottom:10px}
+.transcript-area:focus{border-color:var(--accent)}
+
+.btn-primary{width:100%;padding:12px;border:none;border-radius:10px;font-weight:700;
+  font-size:14px;color:#fff;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-primary.on {background:linear-gradient(135deg,var(--accent),#a04eff)}
+.btn-primary.off{background:var(--subtle);cursor:not-allowed}
+
+.todo-item{background:var(--card);border-radius:12px;padding:13px 15px;
+  display:flex;align-items:flex-start;gap:12px;transition:all .2s;animation:fadeIn .3s ease both}
+.todo-item.done{background:var(--surface);opacity:.6}
+.todo-check{width:22px;height:22px;border-radius:6px;flex-shrink:0;margin-top:1px;
+  border:2px solid;display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:#fff;transition:all .2s;background:transparent}
+.todo-text{font-size:14px;font-weight:500;cursor:text}
+.todo-text.struck{text-decoration:line-through;color:var(--muted)}
+.todo-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;align-items:center}
+.tag{font-size:10px;font-weight:700;letter-spacing:.07em;padding:2px 8px;border-radius:99px;text-transform:uppercase}
+.del-btn{background:none;border:none;color:var(--muted);font-size:19px;flex-shrink:0;line-height:1;padding:0 2px}
+.del-btn:hover{color:var(--red)}
+.edit-row{display:flex;gap:6px}
+.edit-input{flex:1;background:var(--surface);border:1px solid var(--accent);border-radius:6px;padding:4px 8px;color:var(--text);font-size:14px}
+.edit-save  {background:var(--accent);border:none;border-radius:6px;padding:4px 10px;color:#fff;font-size:12px;font-weight:700}
+.edit-cancel{background:none;border:none;color:var(--muted);font-size:18px}
+
+.ring-wrap{position:relative;flex-shrink:0}
+.ring-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.bar-track{height:6px;background:var(--subtle);border-radius:99px;overflow:hidden}
+.bar-fill {height:100%;border-radius:99px;transition:width .6s ease}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 14px;animation:fadeIn .4s ease both}
+.progress-card{background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:18px 20px;display:flex;align-items:center;gap:18px;margin-top:18px;animation:fadeIn .4s ease}
+.info-box{background:#7c6fff14;border:1px solid #7c6fff33;border-radius:10px;
+  padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--accent);line-height:1.6}
+.notif-strip{padding:10px 20px;display:flex;flex-direction:column;gap:6px}
+.notif-item{background:#ffb84d18;border:1px solid #ffb84d44;border-radius:10px;
+  padding:10px 14px;display:flex;justify-content:space-between;align-items:center;animation:fadeIn .3s ease}
+.spinner{display:inline-block;width:15px;height:15px;
+  border:2px solid #ffffff30;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+.empty{text-align:center;padding:52px 20px;color:var(--muted);font-size:14px;animation:fadeIn .4s ease}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:999;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:12px 22px;font-size:13px;font-weight:500;color:var(--text);
+  box-shadow:0 8px 32px #00000088;animation:fadeUp .3s ease;white-space:nowrap;max-width:90vw;pointer-events:none}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="brand-sub">AI Productivity</div>
+    <div class="brand">FlowDesk</div>
+  </div>
+  <div class="header-right">
+    <div id="bellWrap" style="position:relative;display:none">
+      <div style="width:9px;height:9px;border-radius:50%;background:var(--red);position:absolute;top:-2px;right:-2px;animation:pulse 1.5s infinite"></div>
+      <button class="bell-btn" onclick="clearNotifs()">🔔</button>
+    </div>
+    <div class="view-toggle">
+      <button class="view-btn active" id="btnToday" onclick="setView('today')">Today</button>
+      <button class="view-btn"        id="btnDash"  onclick="setView('dashboard')">Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<div class="notif-strip" id="notifStrip"></div>
+
+<div class="main">
+  <div id="viewToday">
+    <div class="progress-card">
+      <div class="ring-wrap" style="width:54px;height:54px">
+        <svg id="pRing" width="54" height="54" style="transform:rotate(-90deg)">
+          <circle cx="27" cy="27" r="22" fill="none" stroke="var(--subtle)" stroke-width="5"/>
+          <circle id="pArc" cx="27" cy="27" r="22" fill="none" stroke="var(--muted)"
+            stroke-width="5" stroke-dasharray="138.2" stroke-dashoffset="138.2"
+            stroke-linecap="round" style="transition:stroke-dashoffset .6s ease"/>
+        </svg>
+        <div class="ring-label" id="pPct" style="color:var(--muted)">0%</div>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:18px;font-weight:700" id="pText">0 / 0 done today</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px" id="pDate"></div>
+      </div>
+      <div id="partyEmoji" style="font-size:30px;display:none">🎉</div>
+    </div>
+
+    <div class="card" style="margin-top:14px;border-width:2px;transition:border-color .3s" id="voiceCard">
+      <div class="card-label">🎤 Voice → Whisper → LLaMA3 → Tasks</div>
+      <div id="modelStatus" class="status-banner warn"><span>⏳</span><span>Checking status…</span></div>
+      <div class="info-box">
+        <strong>How it works:</strong> Tap 🎤 → speak →
+        <strong>Groq Whisper</strong> transcribes →
+        <strong>Groq LLaMA3</strong> extracts structured tasks.
+        Free tier · open-source models · no local install needed.
+      </div>
+      <div class="voice-row">
+        <button class="mic-btn idle" id="micBtn" onclick="toggleRec()">🎤</button>
+        <div style="flex:1">
+          <div class="waveform" id="waveform"></div>
+          <div class="mic-status" id="micStatus">Tap 🎤 and speak your tasks for today</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:5px;font-weight:600">Transcript / manual input</div>
+      <textarea class="transcript-area" id="ta"
+        placeholder='Auto-filled after recording, or type: "Review Q3 at 10am, standup 2pm, gym 6pm…"'
+        oninput="updateBtn()"></textarea>
+      <button class="btn-primary off" id="genBtn" onclick="generate()">
+        ✨ Generate Tasks with LLaMA3
+      </button>
+    </div>
+
+    <div id="todoList" style="margin-top:14px;display:flex;flex-direction:column;gap:8px"></div>
+  </div>
+
+  <div id="viewDash" style="display:none">
+    <div style="margin-top:18px;display:flex;flex-direction:column;gap:14px">
+      <div class="stat-grid" id="statGrid"></div>
+      <div class="card" id="barChart"></div>
+      <div class="card" id="ringChart"></div>
+      <div class="card" id="catChart"></div>
+      <div id="insightBox" style="background:#7c6fff18;border:1px solid #7c6fff44;border-radius:14px;padding:16px;animation:fadeIn .4s ease .5s both"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" style="display:none"></div>
+
+<script>
+const CAT_COL={work:"#7c6fff",personal:"#00e5a0",health:"#ff7eb3",learning:"#ffb84d",other:"#5a5880"};
+const PRI_COL={high:"#ff5577",medium:"#ffb84d",low:"#00e5a0"};
+const TODAY=new Date().toISOString().split("T")[0];
+const LS_KEY="flowdesk_todos_v2";
+
+let todos=lsLoad(), recording=false, mediaRec=null, chunks=[], waveTimer=null;
+let editId=null, notifs=[], notifTimers={};
+
+window.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("pDate").textContent=
+    new Date().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});
+  buildWaveform(); renderTodos(); checkStatus();
+});
+
+function lsLoad(){try{return JSON.parse(localStorage.getItem(LS_KEY))||[];}catch{return[];}}
+function lsSave(){try{localStorage.setItem(LS_KEY,JSON.stringify(todos));}catch{}}
+
+async function checkStatus(){
+  try{
+    const r=await fetch("/api/status"); const s=await r.json();
+    const el=document.getElementById("modelStatus");
+    if(s.groq_key_set&&s.groq_available){
+      el.className="status-banner ok";
+      el.innerHTML=`<span>✅</span><span>Groq ready — <strong>${s.whisper_model}</strong> (STT) + <strong>${s.llm_model}</strong> (LLM)</span>`;
+    } else if(!s.groq_key_set){
+      el.className="status-banner err";
+      el.innerHTML=`<span>❌</span><span><strong>GROQ_API_KEY not set.</strong> Add it in Vercel → Settings → Environment Variables. Get a free key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent)">console.groq.com</a></span>`;
+    } else {
+      el.className="status-banner err";
+      el.innerHTML=`<span>❌</span><span>groq package missing</span>`;
+    }
+  }catch{
+    document.getElementById("modelStatus").className="status-banner warn";
+    document.getElementById("modelStatus").innerHTML=`<span>⚠️</span><span>Could not reach server</span>`;
+  }
+}
+
+function buildWaveform(){
+  document.getElementById("waveform").innerHTML=
+    Array(13).fill('<div class="wave-bar" style="height:20%"></div>').join("");
+}
+function startWave(){
+  document.querySelectorAll(".wave-bar").forEach(b=>b.classList.add("active"));
+  waveTimer=setInterval(()=>{
+    document.querySelectorAll(".wave-bar").forEach(b=>{b.style.height=(Math.random()*70+20)+"%";});
+  },110);
+}
+function stopWave(){
+  clearInterval(waveTimer);
+  document.querySelectorAll(".wave-bar").forEach(b=>{b.classList.remove("active");b.style.height="20%";});
+}
+
+async function toggleRec(){
+  if(recording){stopRec();return;}
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[];
+    const mime=MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus"
+              :MediaRecorder.isTypeSupported("audio/webm")?"audio/webm":"audio/ogg";
+    mediaRec=new MediaRecorder(stream,{mimeType:mime});
+    mediaRec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+    mediaRec.onstop=()=>{stream.getTracks().forEach(t=>t.stop());sendAudio(mime);};
+    mediaRec.start(200); recording=true;
+    micState("recording","⏹"); setMicMsg("rec","Recording… tap ⏹ to stop");
+    document.getElementById("voiceCard").style.borderColor="var(--green)";
+    startWave();
+  }catch{showToast("❌ Microphone access denied");}
+}
+function stopRec(){
+  mediaRec?.stop(); recording=false;
+  micState("loading",""); setMicMsg("proc","Sending to Whisper…");
+  document.getElementById("voiceCard").style.borderColor="var(--border)";
+  stopWave();
+}
+function micState(cls,icon){
+  const b=document.getElementById("micBtn"); b.className="mic-btn "+cls;
+  b.innerHTML=cls==="loading"?'<div class="spinner"></div>':icon;
+}
+
+async function sendAudio(mime){
+  const blob=new Blob(chunks,{type:mime});
+  const ext=mime.includes("ogg")?".ogg":".webm";
+  const form=new FormData();
+  form.append("audio",blob,"recording"+ext);
+  try{
+    const r=await fetch("/api/transcribe",{method:"POST",body:form});
+    if(!r.ok){const t=await r.text();throw new Error(`Server ${r.status}: ${t.slice(0,200)}`);}
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    if(!d.transcript?.trim()) throw new Error("No speech detected — try speaking louder");
+    document.getElementById("ta").value=d.transcript;
+    updateBtn();
+    setMicMsg("","✅ Transcribed! Click Generate or edit above.");
+    showToast("✅ "+d.transcript.slice(0,60)+(d.transcript.length>60?"…":""));
+    await generate();
+  }catch(e){
+    setMicMsg("","⚠️ "+e.message); showToast("❌ "+e.message);
+  }finally{micState("idle","🎤");}
+}
+
+async function generate(){
+  const text=document.getElementById("ta").value.trim();
+  if(!text){showToast("Type or record something first!");return;}
+  setBtnLoading(true);
+  try{
+    const r=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text})});
+    if(!r.ok){const t=await r.text();throw new Error(`Server ${r.status}: ${t.slice(0,300)}`);}
+    const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    const newTodos=d.todos||[];
+    if(!newTodos.length){showToast("⚠️ No tasks found — try being more specific");return;}
+    todos=[...todos,...newTodos]; lsSave();
+    document.getElementById("ta").value=""; updateBtn();
+    renderTodos(); scheduleNotifs();
+    showToast(`✅ Created ${newTodos.length} task${newTodos.length>1?"s":""}`);
+  }catch(e){showToast("❌ "+e.message);console.error(e);}
+  finally{setBtnLoading(false);}
+}
+
+function toggleTodo(id){const t=todos.find(x=>x.id===id);if(!t)return;t.done=!t.done;lsSave();renderTodos();}
+function deleteTodo(id){todos=todos.filter(x=>x.id!==id);lsSave();renderTodos();}
+function startEdit(id){editId=id;renderTodos();}
+function cancelEdit(){editId=null;renderTodos();}
+function saveEdit(id){
+  const inp=document.getElementById("ei-"+id);if(!inp)return;
+  const t=todos.find(x=>x.id===id);if(t)t.text=inp.value;
+  editId=null;lsSave();renderTodos();
+}
+
+function renderTodos(){
+  const ts=todos.filter(t=>t.date===TODAY);
+  updateProgress(ts); scheduleNotifs();
+  const list=document.getElementById("todoList");
+  if(!ts.length){
+    list.innerHTML=`<div class="empty"><div style="font-size:44px;margin-bottom:12px">🎯</div>No tasks yet — record your voice or type above!</div>`;
+    return;
+  }
+  list.innerHTML=ts.map((t,i)=>{
+    const pc=PRI_COL[t.priority]||PRI_COL.medium, cc=CAT_COL[t.category]||CAT_COL.other;
+    const meta=(t.time?`<span style="font-size:11px;color:var(--muted)">🕐 ${t.time} · ${t.duration}m</span>`:"")
+      +`<span class="tag" style="background:${cc}22;color:${cc}">${t.category}</span>`
+      +`<span class="tag" style="background:${pc}22;color:${pc}">${t.priority}</span>`;
+    const body=editId===t.id
+      ?`<div class="edit-row"><input class="edit-input" id="ei-${t.id}" value="${esc(t.text)}"
+          onkeydown="if(event.key==='Enter')saveEdit('${t.id}')"/>
+         <button class="edit-save" onclick="saveEdit('${t.id}')">Save</button>
+         <button class="edit-cancel" onclick="cancelEdit()">×</button></div>`
+      :`<div class="todo-text ${t.done?'struck':''}" onclick="startEdit('${t.id}')">${esc(t.text)}</div>`;
+    return `<div class="todo-item ${t.done?'done':''}"
+        style="border:1px solid ${t.done?'var(--border)':pc+'55'};animation-delay:${i*.04}s">
+      <button class="todo-check" style="border-color:${pc};${t.done?'background:'+pc:''}"
+        onclick="toggleTodo('${t.id}')">${t.done?"✓":""}</button>
+      <div style="flex:1;min-width:0">${body}<div class="todo-meta">${meta}</div></div>
+      <button class="del-btn" onclick="deleteTodo('${t.id}')">×</button>
+    </div>`;
+  }).join("");
+}
+
+function updateProgress(ts){
+  const total=ts.length,done=ts.filter(t=>t.done).length;
+  const pct=total?Math.round(done/total*100):0;
+  const col=pct>=80?"var(--green)":pct>=50?"var(--amber)":"var(--muted)";
+  const arc=document.getElementById("pArc");
+  arc.style.strokeDashoffset=138.2-(pct/100)*138.2; arc.style.stroke=col;
+  document.getElementById("pPct").textContent=pct+"%";
+  document.getElementById("pPct").style.color=col;
+  document.getElementById("pText").textContent=`${done} / ${total} done today`;
+  document.getElementById("partyEmoji").style.display=(pct===100&&total>0)?"":"none";
+}
+
+function scheduleNotifs(){
+  Object.values(notifTimers).forEach(clearTimeout);notifTimers={};
+  todos.forEach(t=>{
+    if(t.done||!t.time||t.date!==TODAY)return;
+    const[h,m]=t.time.split(":").map(Number);
+    const fire=new Date();fire.setHours(h,m,0,0);
+    const diff=fire-Date.now();
+    if(diff>0&&diff<86400000)
+      notifTimers[t.id]=setTimeout(()=>{addNotif("⏰ Time for: "+t.text);showToast("⏰ "+t.text);},diff);
+  });
+}
+function addNotif(msg){notifs.push({id:Date.now(),text:msg});renderNotifs();document.getElementById("bellWrap").style.display="block";}
+function renderNotifs(){
+  document.getElementById("notifStrip").innerHTML=notifs.map(n=>
+    `<div class="notif-item"><span style="font-size:13px;color:var(--amber)">${n.text}</span>
+     <button style="background:none;border:none;color:var(--muted);font-size:18px" onclick="dismissNotif(${n.id})">×</button></div>`
+  ).join("");
+}
+function dismissNotif(id){notifs=notifs.filter(n=>n.id!==id);renderNotifs();if(!notifs.length)document.getElementById("bellWrap").style.display="none";}
+function clearNotifs(){notifs=[];renderNotifs();document.getElementById("bellWrap").style.display="none";}
+
+async function loadDashboard(){
+  try{
+    const r=await fetch("/api/stats",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(todos)});
+    if(!r.ok)return; const s=await r.json();
+    document.getElementById("statGrid").innerHTML=[
+      {icon:"📋",label:"Total",   val:s.all_total,   color:"var(--accent)"},
+      {icon:"✅",label:"Done",    val:s.all_done,    color:"var(--green)"},
+      {icon:"📈",label:"Avg/day", val:s.avg_pct+"%", color:"var(--amber)"},
+    ].map((c,i)=>`<div class="stat-card" style="animation-delay:${i*.08}s">
+      <div style="font-size:22px;margin-bottom:6px">${c.icon}</div>
+      <div style="font-size:24px;font-weight:800;color:${c.color}">${c.val}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px">${c.label}</div>
+    </div>`).join("");
+
+    document.getElementById("barChart").innerHTML=`<div class="card-label" style="margin-bottom:16px">Last 7 Days</div>
+      <div style="display:flex;align-items:flex-end;gap:8px;height:130px">
+      ${s.last7.map(d=>{
+        const col=d.pct>=80?"var(--green)":d.pct>=50?"var(--amber)":d.total?"var(--red)":"var(--subtle)";
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px">
+          <div style="font-size:10px;color:var(--muted)">${d.done}/${d.total}</div>
+          <div style="width:100%;height:90px;background:var(--subtle);border-radius:6px;overflow:hidden;display:flex;align-items:flex-end">
+            <div style="width:100%;height:${d.total?Math.max(d.pct,4):4}%;background:${col};border-radius:4px 4px 0 0;transition:height .6s"></div>
+          </div>
+          <div style="font-size:10px;color:var(--muted)">${d.label}</div>
+        </div>`;
+      }).join("")}</div>`;
+
+    document.getElementById("ringChart").innerHTML=`<div class="card-label" style="margin-bottom:16px">Completion Rings</div>
+      <div style="display:flex;gap:12px;justify-content:space-around;flex-wrap:wrap">
+      ${s.last7.map(d=>{
+        const col=d.pct>=80?"var(--green)":d.pct>=50?"var(--amber)":d.total?"var(--red)":"var(--muted)";
+        return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+          <div style="position:relative;width:52px;height:52px">
+            <svg width="52" height="52" style="transform:rotate(-90deg)">
+              <circle cx="26" cy="26" r="21" fill="none" stroke="var(--subtle)" stroke-width="5"/>
+              <circle cx="26" cy="26" r="21" fill="none" stroke="${col}" stroke-width="5"
+                stroke-dasharray="131.9" stroke-dashoffset="${131.9-(d.pct/100)*131.9}" stroke-linecap="round"/>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:${col}">${d.pct}%</div>
+          </div>
+          <div style="font-size:10px;color:var(--muted)">${d.label}</div>
+        </div>`;
+      }).join("")}</div>`;
+
+    const allT=s.all_total||1;
+    document.getElementById("catChart").innerHTML=`<div class="card-label" style="margin-bottom:16px">By Category</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+      ${s.categories.map(c=>{
+        const col=CAT_COL[c.category]||"var(--muted)";
+        const pct=Math.round(c.total/allT*100);
+        return `<div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+            <span style="font-size:13px;text-transform:capitalize;color:${col};font-weight:600">${c.category}</span>
+            <span style="font-size:12px;color:var(--muted)">${c.total} tasks · ${pct}%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${col}"></div></div>
+        </div>`;
+      }).join("")}</div>`;
+
+    document.getElementById("insightBox").innerHTML=
+      `<div style="font-size:13px;color:var(--accent);font-weight:700;margin-bottom:6px">💡 Insight</div>
+       <div style="font-size:13px;color:var(--text);line-height:1.65">
+         ${s.avg_pct>=80?"🚀 Outstanding! You're consistently hitting your goals."
+           :s.avg_pct>=50?"📊 Solid progress. Try time-blocking similar tasks together."
+           :"🎯 Pick 3 must-do tasks each morning and tackle those first."}</div>`;
+  }catch(e){console.error(e);}
+}
+
+function setView(v){
+  document.getElementById("viewToday").style.display=v==="today"?"":"none";
+  document.getElementById("viewDash") .style.display=v==="dashboard"?"":"none";
+  document.getElementById("btnToday").className="view-btn"+(v==="today"?" active":"");
+  document.getElementById("btnDash") .className="view-btn"+(v==="dashboard"?" active":"");
+  if(v==="dashboard")loadDashboard();
+}
+function setMicMsg(cls,msg){const el=document.getElementById("micStatus");el.className="mic-status"+(cls?" "+cls:"");el.textContent=msg;}
+function updateBtn(){const v=document.getElementById("ta").value.trim();document.getElementById("genBtn").className="btn-primary "+(v?"on":"off");}
+function setBtnLoading(on){
+  const b=document.getElementById("genBtn"); b.className="btn-primary off";
+  b.innerHTML=on?'<div class="spinner"></div>&nbsp;LLaMA3 is thinking…':'✨ Generate Tasks with LLaMA3';
+  if(!on)updateBtn();
+}
+let toastT=null;
+function showToast(msg){
+  const el=document.getElementById("toast");el.textContent=msg;el.style.display="block";
+  clearTimeout(toastT);toastT=setTimeout(()=>el.style.display="none",4000);
+}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+</script>
+</body>
+</html>
