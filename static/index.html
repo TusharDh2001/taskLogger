@@ -214,7 +214,7 @@ async function checkStatus(){
     const el=document.getElementById("modelStatus");
     if(s.groq_key_set&&s.groq_available){
       el.className="status-banner ok";
-      el.innerHTML=`<span>✅</span><span>Groq ready — <strong>${s.whisper_model}</strong> (STT) + <strong>${s.llm_model}</strong> (LLM)</span>`;
+      el.innerHTML=`<span>✅</span><span>I am ready, Lets begin</span>`;
     } else if(!s.groq_key_set){
       el.className="status-banner err";
       el.innerHTML=`<span>❌</span><span><strong>GROQ_API_KEY not set.</strong> Add it in Vercel → Settings → Environment Variables. Get a free key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent)">console.groq.com</a></span>`;
@@ -461,7 +461,7 @@ function setMicMsg(cls,msg){const el=document.getElementById("micStatus");el.cla
 function updateBtn(){const v=document.getElementById("ta").value.trim();document.getElementById("genBtn").className="btn-primary "+(v?"on":"off");}
 function setBtnLoading(on){
   const b=document.getElementById("genBtn"); b.className="btn-primary off";
-  b.innerHTML=on?'<div class="spinner"></div>&nbsp;LLaMA3 is thinking…':'✨ Generate Tasks with LLaMA3';
+  b.innerHTML=on?'<div class="spinner"></div>&nbsp;LLaMA3 is thinking…':'✨ Generate Tasks';
   if(!on)updateBtn();
 }
 let toastT=null;
