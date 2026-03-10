@@ -17,7 +17,7 @@ except ImportError:
 
 app = Flask(__name__, static_folder="../static")
 
-GROQ_MODEL       = "llama3-8b-8192"          # free open-source LLaMA3 on Groq
+GROQ_MODEL       = "llama-3.1-8b-instant"          # free open-source LLaMA3 on Groq
 WHISPER_MODEL    = "whisper-large-v3-turbo"   # free Whisper on Groq
 
 def get_groq():
