@@ -62,6 +62,7 @@ Edit `api/index.py`:
 GROQ_MODEL = "llama3-8b-8192"      # fast, free
 # GROQ_MODEL = "llama3-70b-8192"   # smarter, still free
 # GROQ_MODEL = "mixtral-8x7b-32768" # Mixtral
+# update
 ```
 
 ---
