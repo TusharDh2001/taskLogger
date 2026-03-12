@@ -9,123 +9,150 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f2ee;
-  --surface:#fff;
-  --card:#ffffff;
-  --card2:#faf8f5;
-  --border:#e8e2d9;
-  --border2:#d6cfc4;
-
-  --coral:#ff6b47;
-  --coral-soft:#fff0ec;
-  --coral-mid:#ff6b4733;
-  --teal:#0ea5a0;
-  --teal-soft:#e6f7f7;
-  --navy:#1a2332;
-  --navy-2:#2d3f55;
-  --gold:#e8a020;
-  --gold-soft:#fdf3e0;
-  --mint:#22c98b;
-  --mint-soft:#e6f9f2;
-  --lavender:#7c6aff;
-  --lavender-soft:#f0eeff;
-  --rose:#e85d8a;
-  --rose-soft:#fdedf4;
-
-  --text:#1a2332;
-  --text-2:#5a6475;
-  --text-3:#9aa3b0;
+  --bg:#f5f2ee;--surface:#fff;--card:#fff;--card2:#faf8f5;
+  --border:#e8e2d9;--border2:#d6cfc4;
+  --coral:#ff6b47;--coral-soft:#fff0ec;--coral-mid:#ff6b4733;
+  --teal:#0ea5a0;--teal-soft:#e6f7f7;
+  --navy:#1a2332;--navy-2:#2d3f55;
+  --gold:#e8a020;--gold-soft:#fdf3e0;
+  --mint:#22c98b;--mint-soft:#e6f9f2;
+  --lavender:#7c6aff;--lavender-soft:#f0eeff;
+  --rose:#e85d8a;--rose-soft:#fdedf4;
+  --text:#1a2332;--text-2:#5a6475;--text-3:#9aa3b0;
   --shadow:0 1px 3px rgba(26,35,50,.06),0 4px 16px rgba(26,35,50,.08);
   --shadow-lg:0 8px 32px rgba(26,35,50,.12),0 2px 8px rgba(26,35,50,.06);
-
-  --font-display:'Fraunces',serif;
-  --font-body:'Plus Jakarta Sans',sans-serif;
+  --font-display:'Fraunces',serif;--font-body:'Plus Jakarta Sans',sans-serif;
   --r:14px;--r-lg:20px;--r-xl:28px;
 }
-body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font-body);padding-bottom:80px;font-size:14px;line-height:1.5;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 0% 0%,rgba(255,107,71,.07),transparent),
+body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font-body);
+  padding-bottom:80px;font-size:14px;line-height:1.5;
+  background-image:radial-gradient(ellipse 80% 50% at 0% 0%,rgba(255,107,71,.07),transparent),
     radial-gradient(ellipse 60% 40% at 100% 100%,rgba(14,165,160,.07),transparent)}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
-input,textarea,button{outline:none;font-family:var(--font-body)}
-a{color:var(--coral);text-decoration:none}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+input,textarea,button{outline:none;font-family:var(--font-body)}a{color:var(--coral);text-decoration:none}
 
-/* ── Animations ── */
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 @keyframes recPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,71,.5)}70%{box-shadow:0 0 0 12px rgba(255,107,71,0)}}
-@keyframes popIn{0%{transform:scale(.85);opacity:0}100%{transform:scale(1);opacity:1}}
-@keyframes dash{to{stroke-dashoffset:0}}
+@keyframes calOpen{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 
-/* ── Header ── */
-.header{
-  position:sticky;top:0;z-index:50;
-  background:rgba(245,242,238,.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);padding:0 24px;
-  display:flex;align-items:center;justify-content:space-between;height:62px
-}
+.header{position:sticky;top:0;z-index:50;background:rgba(245,242,238,.92);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;height:62px}
 .brand-wrap{display:flex;align-items:center;gap:11px}
-.brand-pill{
-  background:var(--coral);color:#fff;
-  font-family:var(--font-display);font-size:18px;font-weight:900;
-  padding:4px 12px;border-radius:10px;letter-spacing:-.01em;
-  font-style:italic;box-shadow:0 3px 10px rgba(255,107,71,.35)
-}
-.brand-tag{
-  font-size:11px;font-weight:700;letter-spacing:.1em;
-  color:var(--text-3);text-transform:uppercase;margin-top:1px
-}
+.brand-pill{background:var(--coral);color:#fff;font-family:var(--font-display);
+  font-size:18px;font-weight:900;padding:4px 12px;border-radius:10px;
+  letter-spacing:-.01em;font-style:italic;box-shadow:0 3px 10px rgba(255,107,71,.35)}
+.brand-tag{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--text-3);text-transform:uppercase;margin-top:2px}
 .header-right{display:flex;gap:8px;align-items:center}
 .view-toggle{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:4px;display:flex;gap:2px}
-.view-btn{padding:6px 18px;border-radius:8px;border:none;font-size:12px;font-weight:700;letter-spacing:.02em;transition:all .2s;background:transparent;color:var(--text-3);cursor:pointer}
+.view-btn{padding:6px 14px;border-radius:8px;border:none;font-size:12px;font-weight:700;
+  transition:all .2s;background:transparent;color:var(--text-3);cursor:pointer;white-space:nowrap}
 .view-btn.active{background:var(--coral);color:#fff;box-shadow:0 2px 8px rgba(255,107,71,.35)}
-.icon-btn{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:7px 10px;color:var(--text-2);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:15px}
+.icon-btn{background:var(--card);border:1px solid var(--border);border-radius:9px;
+  padding:7px 10px;color:var(--text-2);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;font-size:15px}
 .icon-btn:hover{border-color:var(--border2);background:var(--card2)}
 
-/* ── Layout ── */
-.main{padding:0 20px;max-width:700px;margin:0 auto}
-.notif-strip{padding:8px 20px 0;max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
+.main{padding:0 20px;max-width:720px;margin:0 auto}
+.notif-strip{padding:8px 20px 0;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
 
-/* ── Cards ── */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 24px;box-shadow:var(--shadow);animation:fadeIn .4s ease both}
-.card-label{font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--text-3);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+/* ─── Calendar Picker ─── */
+.cal-bar{display:flex;align-items:center;gap:10px;margin-top:18px;animation:fadeIn .35s ease}
+.cal-date-btn{flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:13px 18px;display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
+.cal-date-btn:hover{border-color:var(--border2);box-shadow:var(--shadow-lg)}
+.cal-date-btn.open{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-mid)}
+.cal-date-label{display:flex;flex-direction:column;gap:2px}
+.cal-date-main{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text);line-height:1.2}
+.cal-date-sub{font-size:11px;color:var(--text-3);font-weight:600}
+.cal-nav-btn{width:40px;height:40px;border:1px solid var(--border);border-radius:11px;
+  background:var(--card);color:var(--text-2);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.cal-nav-btn:hover{border-color:var(--border2);background:var(--card2);color:var(--coral)}
+.cal-today-btn{padding:0 14px;height:40px;border:1px solid var(--border);border-radius:11px;
+  background:var(--card);color:var(--text-2);font-size:11px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.cal-today-btn:hover{border-color:var(--coral);color:var(--coral);background:var(--coral-soft)}
+.cal-today-btn.active{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 2px 8px rgba(255,107,71,.35)}
+
+/* Calendar dropdown */
+.cal-dropdown{position:relative;z-index:40}
+.cal-panel{position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-lg);padding:16px;animation:calOpen .25s cubic-bezier(.16,1,.3,1);
+  z-index:40}
+.cal-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month-label{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text)}
+.cal-panel-nav{display:flex;gap:4px}
+.cal-pnav-btn{width:30px;height:30px;border:1px solid var(--border);border-radius:8px;
+  background:transparent;color:var(--text-2);font-size:13px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cal-pnav-btn:hover{border-color:var(--border2);color:var(--coral)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dow{font-size:9px;font-weight:800;letter-spacing:.08em;color:var(--text-3);
+  text-align:center;padding:4px 0 8px;text-transform:uppercase}
+.cal-cell{aspect-ratio:1;border:none;border-radius:9px;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .15s;background:transparent;color:var(--text-2);
+  display:flex;align-items:center;justify-content:center;position:relative;flex-direction:column;gap:1px}
+.cal-cell:hover:not(.empty-cell):not(.selected){background:var(--coral-soft);color:var(--coral)}
+.cal-cell.today-cell{color:var(--coral);font-weight:800}
+.cal-cell.today-cell::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;background:var(--coral)}
+.cal-cell.selected{background:var(--coral);color:#fff;box-shadow:0 2px 8px rgba(255,107,71,.4)}
+.cal-cell.selected.today-cell::after{background:#fff}
+.cal-cell.has-tasks::before{content:'';position:absolute;top:3px;right:4px;
+  width:5px;height:5px;border-radius:50%;background:var(--teal)}
+.cal-cell.selected.has-tasks::before{background:rgba(255,255,255,.7)}
+.cal-cell.other-month{color:var(--text-3);opacity:.4}
+.cal-cell.future-cell{opacity:.5}
+.empty-cell{cursor:default}
+.cal-dot-strip{display:flex;gap:2px;flex-wrap:wrap;justify-content:center;margin-top:1px}
+.cal-mini-dot{width:3px;height:3px;border-radius:50%;flex-shrink:0}
+
+/* Progress card */
+.progress-card{background:var(--navy);color:#fff;border-radius:var(--r-xl);
+  padding:24px 26px;display:flex;align-items:center;gap:22px;
+  margin-top:10px;animation:fadeIn .4s ease both;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.progress-card::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(255,107,71,.15);right:-40px;top:-60px}
+.progress-card::after{content:'';position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(14,165,160,.12);left:60px;bottom:-50px}
+.p-ring-wrap{position:relative;flex-shrink:0;z-index:1}
+.p-ring-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:14px;font-weight:700;color:#fff}
+.p-info{flex:1;z-index:1}
+.p-title{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.2;color:#fff}
+.p-sub{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;font-weight:500}
+.p-bar-track{height:4px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;margin-top:14px}
+.p-bar-fill{height:100%;border-radius:99px;background:var(--coral);transition:width .9s cubic-bezier(.16,1,.3,1)}
+
+/* Past day banner */
+.past-banner{background:var(--gold-soft);border:1px solid rgba(232,160,32,.3);border-radius:var(--r-lg);
+  padding:14px 18px;margin-top:10px;display:flex;align-items:center;gap:12px;animation:fadeIn .3s ease}
+/* Future day banner */
+.future-banner{background:var(--teal-soft);border:1px solid rgba(14,165,160,.25);border-radius:var(--r-lg);
+  padding:14px 18px;margin-top:10px;display:flex;align-items:center;gap:12px;animation:fadeIn .3s ease}
+
+/* Voice card */
+.voice-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);
+  padding:22px 24px;margin-top:14px;box-shadow:var(--shadow);transition:border-color .3s,box-shadow .3s}
+.card-label{font-size:10px;font-weight:800;letter-spacing:.14em;color:var(--text-3);
+  text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .card-label::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* ── Status ── */
-.status-banner{border-radius:var(--r);padding:11px 15px;margin-bottom:18px;font-size:12.5px;line-height:1.6;display:flex;align-items:flex-start;gap:10px;border:1px solid transparent;transition:all .3s}
+.info-box{background:var(--coral-soft);border:1px solid rgba(255,107,71,.2);border-radius:var(--r);
+  padding:13px 16px;margin-bottom:18px;font-size:13px;line-height:1.7;color:var(--text-2)}
+.info-box strong{color:var(--coral);font-weight:700}
+.status-banner{border-radius:var(--r);padding:11px 15px;margin-bottom:18px;font-size:12.5px;
+  line-height:1.6;display:flex;align-items:flex-start;gap:10px;border:1px solid transparent;transition:all .3s}
 .status-banner.ok {border-color:rgba(34,201,139,.25);background:var(--mint-soft);color:#0d8a60}
 .status-banner.err{border-color:rgba(255,107,71,.25);background:var(--coral-soft);color:#c43a1a}
 .status-banner.warn{border-color:rgba(232,160,32,.25);background:var(--gold-soft);color:#9e6900}
 
-/* ── Progress ── */
-.progress-card{
-  background:var(--navy);color:#fff;
-  border-radius:var(--r-xl);padding:24px 26px;
-  display:flex;align-items:center;gap:22px;
-  margin-top:20px;animation:fadeIn .4s ease both;
-  position:relative;overflow:hidden;box-shadow:var(--shadow-lg)
-}
-.progress-card::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(255,107,71,.15);right:-40px;top:-60px}
-.progress-card::after{content:'';position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(14,165,160,.12);left:60px;bottom:-50px}
-.p-ring-wrap{position:relative;flex-shrink:0;z-index:1}
-.p-ring-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:700;color:#fff}
-.p-info{flex:1;z-index:1}
-.p-title{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.2;color:#fff}
-.p-sub{font-size:12px;color:rgba(255,255,255,.55);margin-top:4px;font-weight:500}
-.p-bar-track{height:4px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden;margin-top:14px}
-.p-bar-fill{height:100%;border-radius:99px;background:var(--coral);transition:width .9s cubic-bezier(.16,1,.3,1)}
-
-/* ── Voice Card ── */
-.voice-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:22px 24px;margin-top:14px;box-shadow:var(--shadow);transition:border-color .3s,box-shadow .3s}
-.info-box{background:var(--coral-soft);border:1px solid rgba(255,107,71,.2);border-radius:var(--r);padding:13px 16px;margin-bottom:18px;font-size:13px;line-height:1.7;color:var(--text-2)}
-.info-box strong{color:var(--coral);font-weight:700}
-
-/* ── Mic ── */
+/* Mic */
 .voice-row{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-.mic-btn{width:56px;height:56px;border-radius:50%;border:none;flex-shrink:0;font-size:22px;transition:all .3s;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.mic-btn{width:56px;height:56px;border-radius:50%;border:none;flex-shrink:0;font-size:22px;
+  transition:all .3s;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .mic-btn.idle{background:var(--coral);box-shadow:0 4px 18px rgba(255,107,71,.4)}
 .mic-btn.idle:hover{transform:scale(1.07);box-shadow:0 6px 24px rgba(255,107,71,.5)}
 .mic-btn.recording{background:var(--coral);animation:recPulse 1.5s ease infinite}
@@ -134,100 +161,95 @@ a{color:var(--coral);text-decoration:none}
 .wave-bar{width:3px;border-radius:99px;background:var(--border2);height:30%;transition:height .1s ease;flex-shrink:0}
 .wave-bar.active{background:var(--coral)}
 .mic-hint{font-size:12px;color:var(--text-3);margin-top:5px;font-weight:500;min-height:18px}
-.mic-hint.rec{color:var(--coral)}
-.mic-hint.proc{color:var(--gold)}
-
-/* ── Textarea ── */
+.mic-hint.rec{color:var(--coral)}.mic-hint.proc{color:var(--gold)}
 .field-label{font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.transcript-area{width:100%;min-height:96px;background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;color:var(--text);font-size:13.5px;line-height:1.7;resize:vertical;margin-bottom:14px;transition:border-color .2s,box-shadow .2s}
+.transcript-area{width:100%;min-height:90px;background:var(--card2);border:1px solid var(--border);
+  border-radius:var(--r);padding:13px 16px;color:var(--text);font-size:13.5px;line-height:1.7;
+  resize:vertical;margin-bottom:14px;transition:border-color .2s,box-shadow .2s}
 .transcript-area:focus{border-color:var(--coral);box-shadow:0 0 0 3px var(--coral-mid)}
 .transcript-area::placeholder{color:var(--text-3)}
-
-/* ── Button ── */
-.btn-gen{width:100%;padding:14px;border:none;border-radius:var(--r);font-weight:800;font-size:14px;font-family:var(--font-body);color:#fff;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.btn-gen{width:100%;padding:14px;border:none;border-radius:var(--r);font-weight:800;font-size:14px;
+  color:#fff;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
 .btn-gen.on{background:var(--coral);box-shadow:0 4px 18px rgba(255,107,71,.4)}
 .btn-gen.on:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,107,71,.5)}
 .btn-gen.off{background:var(--border);cursor:not-allowed;color:var(--text-3)}
 
-/* ── Todo Items ── */
+/* Todo items */
 .todo-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.todo-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:15px 16px;display:flex;align-items:flex-start;gap:13px;transition:all .2s;animation:fadeIn .35s ease both;box-shadow:var(--shadow)}
+.todo-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:15px 16px;display:flex;align-items:flex-start;gap:13px;
+  transition:all .2s;animation:fadeIn .35s ease both;box-shadow:var(--shadow)}
 .todo-item:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
 .todo-item.done{background:var(--card2);box-shadow:none;opacity:.6}
-.todo-check{width:22px;height:22px;border-radius:7px;flex-shrink:0;margin-top:1px;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;transition:all .2s;background:transparent;cursor:pointer}
+.todo-item.done:hover{opacity:.7;transform:none}
+.todo-check{width:22px;height:22px;border-radius:7px;flex-shrink:0;margin-top:1px;
+  border:2px solid;display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#fff;transition:all .2s;background:transparent;cursor:pointer}
 .todo-body{flex:1;min-width:0}
 .todo-text{font-size:14px;font-weight:600;cursor:text;line-height:1.5;word-break:break-word;color:var(--text)}
 .todo-text.struck{text-decoration:line-through;color:var(--text-3);font-weight:400}
 .todo-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;align-items:center}
 .tag{font-size:10px;font-weight:800;letter-spacing:.07em;padding:3px 9px;border-radius:99px;text-transform:uppercase}
 .tag-time{font-size:11px;color:var(--text-3);font-weight:600;display:flex;align-items:center;gap:3px}
-.del-btn{background:none;border:none;color:var(--text-3);font-size:18px;flex-shrink:0;cursor:pointer;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all .15s}
+.del-btn{background:none;border:none;color:var(--text-3);font-size:18px;flex-shrink:0;cursor:pointer;
+  width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:all .15s}
 .del-btn:hover{color:var(--coral);background:var(--coral-soft)}
 .edit-row{display:flex;gap:6px}
 .edit-input{flex:1;background:var(--card2);border:1px solid var(--coral);border-radius:7px;padding:5px 10px;color:var(--text);font-size:13.5px}
 .edit-save{background:var(--coral);border:none;border-radius:7px;padding:5px 12px;color:#fff;font-size:12px;font-weight:700;cursor:pointer}
 .edit-cancel{background:none;border:none;color:var(--text-3);font-size:18px;cursor:pointer;padding:0 4px}
+.empty{text-align:center;padding:48px 20px;color:var(--text-3);animation:fadeIn .4s ease;
+  background:var(--card);border:2px dashed var(--border);border-radius:var(--r-xl);margin-top:14px}
 
-/* ── Empty ── */
-.empty{text-align:center;padding:52px 20px;color:var(--text-3);animation:fadeIn .4s ease;background:var(--card);border:2px dashed var(--border);border-radius:var(--r-xl);margin-top:14px}
-
-/* ── Dashboard ── */
-.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
-.dash-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 18px;box-shadow:var(--shadow);animation:fadeIn .4s ease both;position:relative;overflow:hidden}
-.stat-card::before{content:'';position:absolute;width:80px;height:80px;border-radius:50%;right:-20px;top:-20px;opacity:.12}
+/* Dashboard */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:20px 18px;box-shadow:var(--shadow);animation:fadeIn .4s ease both;position:relative;overflow:hidden}
 .stat-icon-wrap{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
-.stat-val{font-family:var(--font-display);font-size:28px;font-weight:900;letter-spacing:-.03em;line-height:1}
+.stat-val{font-family:var(--font-display);font-size:26px;font-weight:900;letter-spacing:-.03em;line-height:1}
 .stat-lbl{font-size:11px;color:var(--text-3);margin-top:5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-.stat-change{font-size:11px;font-weight:700;margin-top:8px;display:flex;align-items:center;gap:3px}
-
-.dash-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 22px;box-shadow:var(--shadow);animation:fadeIn .4s ease both;margin-top:12px}
-.dash-title{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
-
-/* ── SVG Pie ── */
-.pie-wrap{display:flex;align-items:center;gap:24px}
-.pie-legend{display:flex;flex-direction:column;gap:10px;flex:1}
-.legend-row{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
-.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.legend-label{flex:1;color:var(--text-2);text-transform:capitalize}
-.legend-val{color:var(--text);font-weight:700}
-.legend-pct{color:var(--text-3);font-size:11px}
-
-/* ── Bar chart ── */
-.bar-chart{display:flex;align-items:flex-end;gap:8px;height:120px;padding-top:8px}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
-.bar-val-lbl{font-size:10px;color:var(--text-3);font-weight:600;line-height:1}
-.bar-inner{width:100%;background:var(--border);border-radius:7px;overflow:hidden;display:flex;align-items:flex-end;height:80px}
-.bar-fill2{width:100%;border-radius:6px 6px 0 0;transition:height .8s cubic-bezier(.16,1,.3,1)}
-.bar-day-lbl{font-size:10px;color:var(--text-3);font-weight:700;line-height:1}
-
-/* ── Heatmap ── */
+.stat-change{font-size:11px;font-weight:600;margin-top:6px}
+.dash-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);
+  padding:20px 22px;box-shadow:var(--shadow);animation:fadeIn .4s ease both}
+.dash-title{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);margin-bottom:18px;display:flex;align-items:center;gap:6px}
+.pie-wrap{display:flex;align-items:center;gap:18px}
+.pie-legend{display:flex;flex-direction:column;gap:9px;flex:1;min-width:0}
+.legend-row{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600}
+.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.legend-label{flex:1;color:var(--text-2);text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.legend-val{color:var(--text);font-weight:700;flex-shrink:0}
+.legend-pct{color:var(--text-3);font-size:11px;flex-shrink:0;min-width:30px;text-align:right}
+.bar-chart{display:flex;align-items:flex-end;gap:7px;height:110px;padding-top:8px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar-val-lbl{font-size:9px;color:var(--text-3);font-weight:600;line-height:1}
+.bar-inner{width:100%;background:var(--border);border-radius:6px;overflow:hidden;display:flex;align-items:flex-end;height:72px}
+.bar-fill2{width:100%;border-radius:5px 5px 0 0;transition:height .8s cubic-bezier(.16,1,.3,1)}
+.bar-day-lbl{font-size:9px;color:var(--text-3);font-weight:700;line-height:1}
 .heatmap{display:flex;gap:4px;flex-wrap:wrap}
-.heat-cell{width:18px;height:18px;border-radius:4px;transition:transform .15s}
-.heat-cell:hover{transform:scale(1.2)}
-
-/* ── Streak ── */
-.streak-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.streak-num{font-family:var(--font-display);font-size:42px;font-weight:900;color:var(--coral);letter-spacing:-.04em;line-height:1}
-.streak-fire{font-size:32px;line-height:1}
-
-/* ── Notif ── */
-.notif-item{background:var(--gold-soft);border:1px solid rgba(232,160,32,.3);border-radius:var(--r);padding:11px 16px;display:flex;justify-content:space-between;align-items:center;animation:fadeIn .3s ease;font-size:13px}
+.heat-cell{width:17px;height:17px;border-radius:4px;cursor:default;transition:transform .15s}
+.heat-cell:hover{transform:scale(1.3)}
+.streak-num{font-family:var(--font-display);font-size:44px;font-weight:900;color:var(--coral);letter-spacing:-.04em;line-height:1}
+.notif-item{background:var(--gold-soft);border:1px solid rgba(232,160,32,.3);border-radius:var(--r);
+  padding:11px 16px;display:flex;justify-content:space-between;align-items:center;animation:fadeIn .3s ease;font-size:13px}
 .notif-text{color:#9e6900;font-weight:500}
-
-/* ── Toast ── */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:999;background:var(--navy);border-radius:14px;padding:12px 22px;font-size:13px;font-weight:600;color:#fff;box-shadow:var(--shadow-lg);animation:slideUp .3s cubic-bezier(.16,1,.3,1);white-space:nowrap;max-width:88vw;pointer-events:none;display:none}
-.spinner{display:inline-block;width:14px;height:14px;border:2.5px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:999;
+  background:var(--navy);border-radius:14px;padding:12px 22px;font-size:13px;
+  font-weight:600;color:#fff;box-shadow:var(--shadow-lg);animation:slideUp .3s cubic-bezier(.16,1,.3,1);
+  white-space:nowrap;max-width:88vw;pointer-events:none;display:none}
+.spinner{display:inline-block;width:14px;height:14px;border:2.5px solid rgba(255,255,255,.25);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+.dash-spin{display:inline-block;width:20px;height:20px;border:3px solid var(--border);
+  border-top-color:var(--coral);border-radius:50%;animation:spin .7s linear infinite}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="brand-wrap">
     <div class="brand-pill">POGO</div>
     <div>
-      <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1">Todo</div>
+      <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.2">Todo</div>
       <div class="brand-tag">AI-Powered</div>
     </div>
   </div>
@@ -237,7 +259,7 @@ a{color:var(--coral);text-decoration:none}
       <button class="icon-btn" onclick="clearNotifs()">🔔</button>
     </div>
     <div class="view-toggle">
-      <button class="view-btn active" id="btnToday" onclick="setView('today')">Today</button>
+      <button class="view-btn active" id="btnTasks" onclick="setView('tasks')">Tasks</button>
       <button class="view-btn"        id="btnDash"  onclick="setView('dashboard')">Dashboard</button>
     </div>
   </div>
@@ -247,8 +269,37 @@ a{color:var(--coral);text-decoration:none}
 
 <div class="main">
 
-  <!-- TODAY -->
-  <div id="viewToday">
+  <!-- TASKS VIEW -->
+  <div id="viewTasks">
+
+    <!-- Calendar Bar -->
+    <div class="cal-bar">
+      <button class="cal-nav-btn" onclick="shiftDay(-1)" title="Previous day">‹</button>
+      <div class="cal-dropdown" style="flex:1" id="calDropdown">
+        <button class="cal-date-btn" id="calDateBtn" onclick="toggleCalPanel()">
+          <div class="cal-date-label">
+            <div class="cal-date-main" id="calDateMain">—</div>
+            <div class="cal-date-sub" id="calDateSub">—</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div id="calTaskCount" style="font-size:11px;font-weight:700;color:var(--text-3)"></div>
+            <span style="font-size:16px;color:var(--text-3);transition:transform .2s" id="calChevron">▾</span>
+          </div>
+        </button>
+        <div class="cal-panel" id="calPanel" style="display:none">
+          <div class="cal-panel-head">
+            <div class="cal-month-label" id="calMonthLabel">—</div>
+            <div class="cal-panel-nav">
+              <button class="cal-pnav-btn" onclick="shiftMonth(-1)">‹</button>
+              <button class="cal-pnav-btn" onclick="shiftMonth(1)">›</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+      </div>
+      <button class="cal-nav-btn" onclick="shiftDay(1)" title="Next day">›</button>
+      <button class="cal-today-btn" id="calTodayBtn" onclick="goToday()">Today</button>
+    </div>
 
     <div class="progress-card">
       <div class="p-ring-wrap" style="width:68px;height:68px">
@@ -262,17 +313,31 @@ a{color:var(--coral);text-decoration:none}
       </div>
       <div class="p-info">
         <div class="p-title" id="pText">No tasks yet</div>
-        <div class="p-sub" id="pDate"></div>
+        <div class="p-sub" id="pSub"></div>
         <div class="p-bar-track"><div class="p-bar-fill" id="pBarFill" style="width:0%"></div></div>
       </div>
       <div id="partyEmoji" style="font-size:30px;display:none;animation:breathe 2s ease infinite;z-index:1">🎉</div>
+    </div>
+
+    <!-- Banners: shown contextually -->
+    <div class="past-banner" id="pastBanner" style="display:none">
+      <div style="font-size:22px">🕰</div>
+      <div style="font-size:13px;color:#7a5000;line-height:1.6">
+        <strong style="color:#5a3a00;font-weight:700">Past day</strong> — read-only. Switch to today to add or edit tasks.
+      </div>
+    </div>
+    <div class="future-banner" id="futureBanner" style="display:none">
+      <div style="font-size:22px">🔮</div>
+      <div style="font-size:13px;color:#0a6e69;line-height:1.6">
+        <strong style="color:#074d49;font-weight:700">Future day</strong> — planning ahead. Use voice input to schedule tasks.
+      </div>
     </div>
 
     <div class="voice-card" id="voiceCard">
       <div class="card-label">🎤 Voice Input</div>
       <div id="modelStatus" class="status-banner warn"><span>⏳</span><span>Checking status…</span></div>
       <div class="info-box">
-        <strong>How to use:</strong> Tap the mic and speak naturally — <em>"Q3 review at 10am, standup at 2, gym at 6pm."</em> POGO extracts, categorizes & schedules everything automatically.
+        <strong>How to use:</strong> Tap the mic and speak naturally — <em>"Q3 review at 10am, standup 2pm, gym 6pm."</em> POGO extracts, categorizes &amp; schedules everything.
       </div>
       <div class="voice-row">
         <button class="mic-btn idle" id="micBtn" onclick="toggleRec()">🎤</button>
@@ -289,76 +354,267 @@ a{color:var(--coral);text-decoration:none}
     </div>
 
     <div id="todoList"></div>
-
   </div>
 
-  <!-- DASHBOARD -->
+  <!-- DASHBOARD VIEW -->
   <div id="viewDash" style="display:none">
-
-    <!-- Stat cards -->
-    <div class="dash-grid" id="statGrid"></div>
-
-    <!-- Streak + completion rate row -->
-    <div class="dash-grid" style="margin-top:12px" id="streakRow"></div>
-
-    <!-- Bar chart + Pie chart row -->
-    <div class="dash-grid" style="margin-top:12px">
-      <div class="dash-section" id="barChart" style="grid-column:1"></div>
-      <div class="dash-section" id="pieChart" style="grid-column:2"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;margin-bottom:4px">
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-.02em">Your Stats</div>
+      <button onclick="loadDashboard(true)" style="background:var(--card);border:1px solid var(--border);
+        border-radius:9px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--text-2);
+        cursor:pointer;display:flex;align-items:center;gap:6px">🔄 Refresh</button>
     </div>
-
-    <!-- Priority donut + heatmap row -->
-    <div class="dash-grid" style="margin-top:12px">
-      <div class="dash-section" id="priorityChart"></div>
-      <div class="dash-section" id="heatmapChart"></div>
+    <div id="lastUpdated" style="font-size:11px;color:var(--text-3);margin-bottom:2px"></div>
+    <div id="dashContent" style="display:flex;flex-direction:column;gap:0">
+      <div style="text-align:center;padding:48px 20px;color:var(--text-3)">
+        <div class="dash-spin" style="margin:0 auto 14px"></div>Loading…
+      </div>
     </div>
-
-    <!-- Weekly rings -->
-    <div class="dash-section" id="ringChart"></div>
-
-    <!-- Insight -->
-    <div id="insightBox" style="background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:var(--r-lg);padding:22px 24px;margin-top:12px;box-shadow:var(--shadow-lg);animation:fadeIn .5s ease .4s both"></div>
-
   </div>
-</div>
 
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
 const CAT_COL={work:"#7c6aff",personal:"#0ea5a0",health:"#e85d8a",learning:"#e8a020",other:"#9aa3b0"};
 const PRI_COL={high:"#ff6b47",medium:"#e8a020",low:"#22c98b"};
-const TODAY=new Date().toISOString().split("T")[0];
 const LS_KEY="pogo_todos_v1";
-let todos=lsLoad(),recording=false,mediaRec=null,chunks=[],waveTimer=null,editId=null,notifs=[],notifTimers={};
+
+function dateStr(d){return d.toISOString().split("T")[0];}
+const TODAY=dateStr(new Date());
+
+let todos=lsLoad(),recording=false,mediaRec=null,chunks=[],waveTimer=null;
+let editId=null,notifs=[],notifTimers={};
+let selectedDate=TODAY; // YYYY-MM-DD
+let calViewYear=new Date().getFullYear(),calViewMonth=new Date().getMonth();
+let calOpen=false;
 
 window.addEventListener("DOMContentLoaded",()=>{
-  document.getElementById("pDate").textContent=new Date().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});
-  buildWaveform(); renderTodos(); checkStatus();
+  buildWaveform(); updateCalBar(); renderForDate(); checkStatus();
+  document.addEventListener("click",handleOutsideClick);
+  setInterval(()=>{if(document.getElementById("viewDash").style.display!=="none")loadDashboard(false);},60000);
 });
 
 function lsLoad(){try{return JSON.parse(localStorage.getItem(LS_KEY))||[];}catch{return[];}}
 function lsSave(){try{localStorage.setItem(LS_KEY,JSON.stringify(todos));}catch{}}
 
-async function checkStatus(){
-  try{
-    const r=await fetch("/api/status");const s=await r.json();
-    const el=document.getElementById("modelStatus");
-    if(s.groq_key_set&&s.groq_available){el.className="status-banner ok";el.innerHTML=`<span>✅</span><span>Connected — LLaMA3 via Groq is ready</span>`;}
-    else if(!s.groq_key_set){el.className="status-banner err";el.innerHTML=`<span>❌</span><span><strong>GROQ_API_KEY missing.</strong> Add it in Vercel → Settings → Env. Get a free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a></span>`;}
-    else{el.className="status-banner err";el.innerHTML=`<span>❌</span><span>Groq package missing — check deployment logs</span>`;}
-  }catch{
-    const el=document.getElementById("modelStatus");el.className="status-banner warn";
-    el.innerHTML=`<span>⚠️</span><span>Could not reach server — running in offline mode</span>`;
+/* ─── Calendar Logic ─── */
+function handleOutsideClick(e){
+  if(calOpen&&!document.getElementById("calDropdown").contains(e.target)){
+    closeCalPanel();
   }
 }
-
-function buildWaveform(){document.getElementById("waveform").innerHTML=Array(16).fill('<div class="wave-bar"></div>').join("");}
-function startWave(){
-  document.querySelectorAll(".wave-bar").forEach(b=>b.classList.add("active"));
-  waveTimer=setInterval(()=>{document.querySelectorAll(".wave-bar").forEach((b,i)=>{b.style.height=(Math.sin(Date.now()/100+i*.6)*.4+.5)*70+10+"%";});},80);
+function toggleCalPanel(){
+  calOpen=!calOpen;
+  document.getElementById("calPanel").style.display=calOpen?"block":"none";
+  document.getElementById("calDateBtn").classList.toggle("open",calOpen);
+  document.getElementById("calChevron").style.transform=calOpen?"rotate(180deg)":"rotate(0deg)";
+  if(calOpen){
+    const d=new Date(selectedDate+"T12:00:00");
+    calViewYear=d.getFullYear();calViewMonth=d.getMonth();
+    renderCalGrid();
+  }
 }
-function stopWave(){clearInterval(waveTimer);document.querySelectorAll(".wave-bar").forEach(b=>{b.classList.remove("active");b.style.height="30%";});}
+function closeCalPanel(){
+  calOpen=false;
+  document.getElementById("calPanel").style.display="none";
+  document.getElementById("calDateBtn").classList.remove("open");
+  document.getElementById("calChevron").style.transform="rotate(0deg)";
+}
+function shiftMonth(dir){
+  calViewMonth+=dir;
+  if(calViewMonth>11){calViewMonth=0;calViewYear++;}
+  if(calViewMonth<0){calViewMonth=11;calViewYear--;}
+  renderCalGrid();
+}
+function shiftDay(dir){
+  const d=new Date(selectedDate+"T12:00:00");
+  d.setDate(d.getDate()+dir);
+  selectedDate=dateStr(d);
+  closeCalPanel();
+  updateCalBar();
+  renderForDate();
+}
+function goToday(){
+  selectedDate=TODAY;
+  closeCalPanel();
+  updateCalBar();
+  renderForDate();
+}
+function selectDate(ds){
+  selectedDate=ds;
+  closeCalPanel();
+  updateCalBar();
+  renderForDate();
+}
+function renderCalGrid(){
+  const DAYS=["Su","Mo","Tu","We","Th","Fr","Sa"];
+  const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  document.getElementById("calMonthLabel").textContent=months[calViewMonth]+" "+calViewYear;
+  const first=new Date(calViewYear,calViewMonth,1).getDay();
+  const daysInMonth=new Date(calViewYear,calViewMonth+1,0).getDate();
+  const daysInPrev=new Date(calViewYear,calViewMonth,0).getDate();
+  // build task count map
+  const taskMap={};
+  todos.forEach(t=>{taskMap[t.date]=(taskMap[t.date]||0)+1;});
+  const doneMap={};
+  todos.filter(t=>t.done).forEach(t=>{doneMap[t.date]=(doneMap[t.date]||0)+1;});
 
+  let cells=DAYS.map(d=>`<div class="cal-dow">${d}</div>`).join("");
+  // prev month padding
+  for(let i=0;i<first;i++){
+    const day=daysInPrev-first+1+i;
+    cells+=`<div class="cal-cell other-month empty-cell">${day}</div>`;
+  }
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${calViewYear}-${String(calViewMonth+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    const isToday=ds===TODAY;
+    const isSel=ds===selectedDate;
+    const hasTasks=(taskMap[ds]||0)>0;
+    const isFuture=ds>TODAY;
+    let cls="cal-cell";
+    if(isToday) cls+=" today-cell";
+    if(isSel)   cls+=" selected";
+    if(hasTasks) cls+=" has-tasks";
+    if(isFuture) cls+=" future-cell";
+    cells+=`<div class="${cls}" onclick="selectDate('${ds}')">${d}</div>`;
+  }
+  // next month padding to fill grid
+  const total=first+daysInMonth;const rem=(7-total%7)%7;
+  for(let i=1;i<=rem;i++) cells+=`<div class="cal-cell other-month empty-cell">${i}</div>`;
+  document.getElementById("calGrid").innerHTML=cells;
+}
+function updateCalBar(){
+  const d=new Date(selectedDate+"T12:00:00");
+  const isToday=selectedDate===TODAY;
+  const opts={weekday:"long",month:"long",day:"numeric"};
+  const opts2={year:"numeric"};
+  const yy=d.getFullYear(),ty=new Date().getFullYear();
+  document.getElementById("calDateMain").textContent=isToday
+    ?"Today — "+d.toLocaleDateString("en-US",{month:"long",day:"numeric"})
+    :d.toLocaleDateString("en-US",opts)+(yy!==ty?", "+yy:"");
+  const diff=Math.round((new Date(selectedDate+"T12:00:00")-new Date(TODAY+"T12:00:00"))/(1000*60*60*24));
+  document.getElementById("calDateSub").textContent=
+    diff===0?"Today":diff===-1?"Yesterday":diff===1?"Tomorrow":
+    diff<0?Math.abs(diff)+" days ago":diff+" days from now";
+  document.getElementById("calTodayBtn").classList.toggle("active",isToday);
+  const count=todos.filter(t=>t.date===selectedDate).length;
+  document.getElementById("calTaskCount").textContent=count?count+" task"+(count>1?"s":""):"";
+}
+
+/* ─── View routing ─── */
+function setView(v){
+  document.getElementById("viewTasks").style.display=v==="tasks"?"block":"none";
+  document.getElementById("viewDash").style.display=v==="dashboard"?"block":"none";
+  document.getElementById("btnTasks").className="view-btn"+(v==="tasks"?" active":"");
+  document.getElementById("btnDash").className="view-btn"+(v==="dashboard"?" active":"");
+  if(v==="dashboard") loadDashboard(true);
+}
+
+/* ─── Render ─── */
+function renderForDate(){
+  const ts=todos.filter(t=>t.date===selectedDate);
+  const isPast=selectedDate<TODAY;
+  const isFuture=selectedDate>TODAY;
+  const isToday=selectedDate===TODAY;
+  // banners
+  document.getElementById("pastBanner").style.display=isPast?"flex":"none";
+  document.getElementById("futureBanner").style.display=isFuture?"flex":"none";
+  // voice card: show for today and future (can plan ahead)
+  document.getElementById("voiceCard").style.display=isPast?"none":"block";
+  updateProgress(ts);
+  scheduleNotifs();
+  renderTodoList(ts, isPast);
+  updateCalBar();
+}
+function updateProgress(ts){
+  const total=ts.length,done=ts.filter(t=>t.done).length,pct=total?Math.round(done/total*100):0;
+  document.getElementById("pArc").style.strokeDashoffset=175.9-(pct/100)*175.9;
+  document.getElementById("pPct").textContent=pct+"%";
+  document.getElementById("pText").textContent=total?`${done} of ${total} done`:"No tasks yet";
+  const d=new Date(selectedDate+"T12:00:00");
+  document.getElementById("pSub").textContent=d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});
+  document.getElementById("pBarFill").style.width=pct+"%";
+  document.getElementById("partyEmoji").style.display=(pct===100&&total>0&&selectedDate===TODAY)?"block":"none";
+}
+function renderTodoList(ts, readonly){
+  const list=document.getElementById("todoList");
+  if(!ts.length){
+    const isPast=selectedDate<TODAY,isFuture=selectedDate>TODAY;
+    list.innerHTML=`<div class="empty">
+      <div style="font-size:36px;margin-bottom:14px">${isPast?"🕰":isFuture?"🔮":"✦"}</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text-2);font-family:var(--font-display);margin-bottom:6px">
+        ${isPast?"No tasks that day":isFuture?"Nothing planned yet":"No tasks for today"}</div>
+      <div style="font-size:13px;line-height:1.7">${isPast?"No tasks were recorded for this day.":isFuture?"Use voice or type above to plan ahead.":"Record your voice or type above to get started."}</div>
+    </div>`;
+    return;
+  }
+  list.className="todo-list";
+  list.innerHTML=ts.map((t,i)=>{
+    const pc=PRI_COL[t.priority]||PRI_COL.medium,cc=CAT_COL[t.category]||CAT_COL.other;
+    const timePart=t.time?`<span class="tag-time">🕐 ${t.time}${t.duration?` · ${t.duration}m`:""}</span>`:"";
+    const meta=timePart
+      +`<span class="tag" style="background:${cc}18;color:${cc}">${t.category||"other"}</span>`
+      +`<span class="tag" style="background:${pc}18;color:${pc}">${t.priority||"medium"}</span>`;
+    if(readonly){
+      return `<div class="todo-item ${t.done?"done":""}" style="border-left:3px solid ${t.done?"var(--border)":pc};animation-delay:${i*.05}s;cursor:default">
+        <div class="todo-check" style="border-color:${pc};${t.done?`background:${pc}`:""};cursor:default">${t.done?"✓":""}</div>
+        <div class="todo-body">
+          <div class="todo-text ${t.done?"struck":""}">${esc(t.text)}</div>
+          <div class="todo-meta">${meta}</div>
+        </div>
+        <span style="font-size:11px;font-weight:700;color:${t.done?"var(--mint)":"var(--text-3)"};flex-shrink:0">${t.done?"✅":"⏳"}</span>
+      </div>`;
+    }
+    const body=editId===t.id
+      ?`<div class="edit-row"><input class="edit-input" id="ei-${t.id}" value="${esc(t.text)}" onkeydown="if(event.key==='Enter')saveEdit('${t.id}')"/>
+         <button class="edit-save" onclick="saveEdit('${t.id}')">Save</button>
+         <button class="edit-cancel" onclick="cancelEdit()">×</button></div>`
+      :`<div class="todo-text ${t.done?"struck":""}" onclick="startEdit('${t.id}')">${esc(t.text)}</div>`;
+    return `<div class="todo-item ${t.done?"done":""}" style="border-left:3px solid ${t.done?"var(--border)":pc};animation-delay:${i*.05}s">
+      <button class="todo-check" style="border-color:${pc};${t.done?`background:${pc}`:""}" onclick="toggleTodo('${t.id}')">${t.done?"✓":""}</button>
+      <div class="todo-body">${body}<div class="todo-meta">${meta}</div></div>
+      <button class="del-btn" onclick="deleteTodo('${t.id}')">×</button>
+    </div>`;
+  }).join("");
+}
+
+/* ─── Todo actions ─── */
+function toggleTodo(id){const t=todos.find(x=>x.id===id);if(!t)return;t.done=!t.done;lsSave();renderForDate();}
+function deleteTodo(id){todos=todos.filter(x=>x.id!==id);lsSave();renderForDate();}
+function startEdit(id){editId=id;renderForDate();}
+function cancelEdit(){editId=null;renderForDate();}
+function saveEdit(id){const inp=document.getElementById("ei-"+id);if(!inp)return;const t=todos.find(x=>x.id===id);if(t)t.text=inp.value;editId=null;lsSave();renderForDate();}
+
+/* ─── Notifications ─── */
+function scheduleNotifs(){
+  Object.values(notifTimers).forEach(clearTimeout);notifTimers={};
+  todos.forEach(t=>{
+    if(t.done||!t.time||t.date!==TODAY)return;
+    const[h,m]=t.time.split(":").map(Number);const fire=new Date();fire.setHours(h,m,0,0);
+    const diff=fire-Date.now();
+    if(diff>0&&diff<86400000)notifTimers[t.id]=setTimeout(()=>{addNotif("⏰ "+t.text);showToast("⏰ "+t.text);},diff);
+  });
+}
+function addNotif(msg){notifs.push({id:Date.now(),text:msg});renderNotifs();document.getElementById("bellWrap").style.display="block";}
+function renderNotifs(){document.getElementById("notifStrip").innerHTML=notifs.map(n=>`<div class="notif-item"><span class="notif-text">${n.text}</span><button style="background:none;border:none;color:var(--text-3);font-size:18px;cursor:pointer" onclick="dismissNotif(${n.id})">×</button></div>`).join("");}
+function dismissNotif(id){notifs=notifs.filter(n=>n.id!==id);renderNotifs();if(!notifs.length)document.getElementById("bellWrap").style.display="none";}
+function clearNotifs(){notifs=[];renderNotifs();document.getElementById("bellWrap").style.display="none";}
+
+/* ─── API: status ─── */
+async function checkStatus(){
+  try{
+    const r=await fetch("/api/status");const s=await r.json();const el=document.getElementById("modelStatus");
+    if(s.groq_key_set&&s.groq_available){el.className="status-banner ok";el.innerHTML=`<span>✅</span><span>Connected — LLaMA3 via Groq is ready</span>`;}
+    else if(!s.groq_key_set){el.className="status-banner err";el.innerHTML=`<span>❌</span><span><strong>GROQ_API_KEY missing.</strong> Add it in Vercel → Env Variables. Free key at <a href="https://console.groq.com" target="_blank">console.groq.com</a></span>`;}
+    else{el.className="status-banner err";el.innerHTML=`<span>❌</span><span>Groq package missing — check deployment</span>`;}
+  }catch{const el=document.getElementById("modelStatus");el.className="status-banner warn";el.innerHTML=`<span>⚠️</span><span>Server unreachable — running in offline mode</span>`;}
+}
+
+/* ─── Voice / recording ─── */
+function buildWaveform(){document.getElementById("waveform").innerHTML=Array(16).fill('<div class="wave-bar"></div>').join("");}
+function startWave(){document.querySelectorAll(".wave-bar").forEach(b=>b.classList.add("active"));waveTimer=setInterval(()=>{document.querySelectorAll(".wave-bar").forEach((b,i)=>{b.style.height=(Math.sin(Date.now()/100+i*.6)*.4+.5)*70+10+"%";});},80);}
+function stopWave(){clearInterval(waveTimer);document.querySelectorAll(".wave-bar").forEach(b=>{b.classList.remove("active");b.style.height="30%";});}
 async function toggleRec(){
   if(recording){stopRec();return;}
   try{
@@ -367,24 +623,14 @@ async function toggleRec(){
     mediaRec=new MediaRecorder(stream,{mimeType:mime});
     mediaRec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
     mediaRec.onstop=()=>{stream.getTracks().forEach(t=>t.stop());sendAudio(mime);};
-    mediaRec.start(200);recording=true;
-    micState("recording","⏹");setMicMsg("rec","Recording… tap ⏹ to stop");
-    document.getElementById("voiceCard").style.borderColor="rgba(255,107,71,.4)";
-    document.getElementById("voiceCard").style.boxShadow="0 0 0 3px rgba(255,107,71,.1)";
-    startWave();
+    mediaRec.start(200);recording=true;micState("recording","⏹");setMicMsg("rec","Recording… tap ⏹ to stop");
+    document.getElementById("voiceCard").style.borderColor="rgba(255,107,71,.4)";startWave();
   }catch{showToast("❌ Microphone access denied");}
 }
-function stopRec(){
-  mediaRec?.stop();recording=false;micState("loading","");setMicMsg("proc","Sending to Whisper…");
-  document.getElementById("voiceCard").style.borderColor="var(--border)";
-  document.getElementById("voiceCard").style.boxShadow="var(--shadow)";
-  stopWave();
-}
+function stopRec(){mediaRec?.stop();recording=false;micState("loading","");setMicMsg("proc","Sending to Whisper…");document.getElementById("voiceCard").style.borderColor="var(--border)";stopWave();}
 function micState(cls,icon){const b=document.getElementById("micBtn");b.className="mic-btn "+cls;b.innerHTML=cls==="loading"?'<div class="spinner"></div>':icon;}
-
 async function sendAudio(mime){
-  const blob=new Blob(chunks,{type:mime});
-  const form=new FormData();form.append("audio",blob,"recording"+(mime.includes("ogg")?".ogg":".webm"));
+  const blob=new Blob(chunks,{type:mime});const form=new FormData();form.append("audio",blob,"recording"+(mime.includes("ogg")?".ogg":".webm"));
   try{
     const r=await fetch("/api/transcribe",{method:"POST",body:form});
     if(!r.ok){const t=await r.text();throw new Error(`Server ${r.status}: ${t.slice(0,200)}`);}
@@ -397,286 +643,191 @@ async function sendAudio(mime){
   }catch(e){setMicMsg("","⚠️ "+e.message);showToast("❌ "+e.message);}
   finally{micState("idle","🎤");}
 }
-
 async function generate(){
   const text=document.getElementById("ta").value.trim();if(!text){showToast("Type or record something first!");return;}
   setBtnLoading(true);
   try{
-    const r=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text})});
+    const r=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,date:selectedDate})});
     if(!r.ok){const t=await r.text();throw new Error(`Server ${r.status}: ${t.slice(0,300)}`);}
     const d=await r.json();if(d.error)throw new Error(d.error);
-    const newTodos=d.todos||[];if(!newTodos.length){showToast("⚠️ No tasks found — be more specific");return;}
-    todos=[...todos,...newTodos];lsSave();
-    document.getElementById("ta").value="";updateBtn();renderTodos();scheduleNotifs();
-    showToast(`✅ Created ${newTodos.length} task${newTodos.length>1?"s":""}`);
-  }catch(e){showToast("❌ "+e.message);console.error(e);}
+    const newTodos=(d.todos||[]).map(t=>({...t,date:t.date||selectedDate}));
+    if(!newTodos.length){showToast("⚠️ No tasks found — try being more specific");return;}
+    todos=[...todos,...newTodos];lsSave();document.getElementById("ta").value="";updateBtn();
+    renderForDate();showToast(`✅ Created ${newTodos.length} task${newTodos.length>1?"s":""}`);
+  }catch(e){showToast("❌ "+e.message);}
   finally{setBtnLoading(false);}
 }
 
-function toggleTodo(id){const t=todos.find(x=>x.id===id);if(!t)return;t.done=!t.done;lsSave();renderTodos();}
-function deleteTodo(id){todos=todos.filter(x=>x.id!==id);lsSave();renderTodos();}
-function startEdit(id){editId=id;renderTodos();}
-function cancelEdit(){editId=null;renderTodos();}
-function saveEdit(id){const inp=document.getElementById("ei-"+id);if(!inp)return;const t=todos.find(x=>x.id===id);if(t)t.text=inp.value;editId=null;lsSave();renderTodos();}
-
-function renderTodos(){
-  const ts=todos.filter(t=>t.date===TODAY);updateProgress(ts);scheduleNotifs();
-  const list=document.getElementById("todoList");
-  if(!ts.length){
-    list.innerHTML=`<div class="empty"><div style="font-size:36px;margin-bottom:14px">✦</div><div style="font-size:16px;font-weight:700;color:var(--text-2);font-family:var(--font-display);margin-bottom:6px">No tasks for today</div><div style="font-size:13px;line-height:1.7">Record your voice or type above to get started</div></div>`;
-    return;
+/* ─── Dashboard ─── */
+function localPriorities(list){
+  const m={high:0,medium:0,low:0};list.forEach(t=>{const p=t.priority||"medium";m[p]++;});
+  return [{priority:"high",total:m.high},{priority:"medium",total:m.medium},{priority:"low",total:m.low}];
+}
+function localStreak(list){
+  let s=0;for(let i=0;i<60;i++){const d=new Date();d.setDate(d.getDate()-i);const ds=dateStr(d);if(list.filter(t=>t.date===ds&&t.done).length>0)s++;else if(i>0)break;}return s;
+}
+function localHeatmap(list){
+  const cells=[];for(let i=27;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=dateStr(d);const dt=list.filter(t=>t.date===ds);cells.push({date:ds,total:dt.length,done:dt.filter(t=>t.done).length});}return cells;
+}
+async function loadDashboard(showLoader=true){
+  if(showLoader) document.getElementById("dashContent").innerHTML=`<div style="text-align:center;padding:48px 20px;color:var(--text-3)"><div class="dash-spin" style="margin:0 auto 14px"></div>Loading your data…</div>`;
+  let S;
+  try{
+    const r=await fetch("/api/stats",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(todos)});
+    if(!r.ok) throw new Error("stats failed");
+    S=await r.json();
+    S.priorities=localPriorities(todos);S.streak=localStreak(todos);S.heatmap=localHeatmap(todos);
+    document.getElementById("lastUpdated").textContent="Live · updated "+new Date().toLocaleTimeString();
+  }catch(e){
+    const last7=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=dateStr(d);const dt=todos.filter(t=>t.date===ds);const done=dt.filter(t=>t.done).length;const total=dt.length;last7.push({date:ds,label:d.toLocaleDateString("en-US",{weekday:"short"}),total,done,pct:total?Math.round(done/total*100):0});}
+    const catMap={};todos.forEach(t=>{const c=t.category||"other";catMap[c]=(catMap[c]||0)+1;});
+    const categories=Object.entries(catMap).map(([category,total])=>({category,total})).sort((a,b)=>b.total-a.total);
+    const validDays=last7.filter(d=>d.total>0);const avgPct=validDays.length?Math.round(validDays.reduce((s,d)=>s+d.pct,0)/validDays.length):0;
+    S={last7,categories,all_total:todos.length,all_done:todos.filter(t=>t.done).length,avg_pct:avgPct,priorities:localPriorities(todos),streak:localStreak(todos),heatmap:localHeatmap(todos)};
+    document.getElementById("lastUpdated").textContent="⚠️ Offline — local data";
   }
-  list.className="todo-list";
-  list.innerHTML=ts.map((t,i)=>{
-    const pc=PRI_COL[t.priority]||PRI_COL.medium,cc=CAT_COL[t.category]||CAT_COL.other;
-    const timePart=t.time?`<span class="tag-time">🕐 ${t.time}${t.duration?` · ${t.duration}m`:""}</span>`:"";
-    const meta=timePart+`<span class="tag" style="background:${cc}18;color:${cc}">${t.category||"other"}</span><span class="tag" style="background:${pc}18;color:${pc}">${t.priority||"medium"}</span>`;
-    const body=editId===t.id
-      ?`<div class="edit-row"><input class="edit-input" id="ei-${t.id}" value="${esc(t.text)}" onkeydown="if(event.key==='Enter')saveEdit('${t.id}')"/><button class="edit-save" onclick="saveEdit('${t.id}')">Save</button><button class="edit-cancel" onclick="cancelEdit()">×</button></div>`
-      :`<div class="todo-text ${t.done?"struck":""}" onclick="startEdit('${t.id}')">${esc(t.text)}</div>`;
-    return `<div class="todo-item ${t.done?"done":""}" style="border-left:3px solid ${t.done?"var(--border)":pc};animation-delay:${i*.05}s">
-      <button class="todo-check" style="border-color:${pc};${t.done?`background:${pc}`:""}" onclick="toggleTodo('${t.id}')">${t.done?"✓":""}</button>
-      <div class="todo-body">${body}<div class="todo-meta">${meta}</div></div>
-      <button class="del-btn" onclick="deleteTodo('${t.id}')">×</button>
-    </div>`;
-  }).join("");
+  renderDash(S);
 }
-
-function updateProgress(ts){
-  const total=ts.length,done=ts.filter(t=>t.done).length;
-  const pct=total?Math.round(done/total*100):0;
-  document.getElementById("pArc").style.strokeDashoffset=175.9-(pct/100)*175.9;
-  document.getElementById("pPct").textContent=pct+"%";
-  document.getElementById("pText").textContent=total?`${done} of ${total} done`:"No tasks yet";
-  document.getElementById("pBarFill").style.width=pct+"%";
-  document.getElementById("partyEmoji").style.display=(pct===100&&total>0)?"block":"none";
-}
-
-function scheduleNotifs(){
-  Object.values(notifTimers).forEach(clearTimeout);notifTimers={};
-  todos.forEach(t=>{
-    if(t.done||!t.time||t.date!==TODAY)return;
-    const[h,m]=t.time.split(":").map(Number);const fire=new Date();fire.setHours(h,m,0,0);
-    const diff=fire-Date.now();
-    if(diff>0&&diff<86400000)notifTimers[t.id]=setTimeout(()=>{addNotif("⏰ Time for: "+t.text);showToast("⏰ "+t.text);},diff);
-  });
-}
-function addNotif(msg){notifs.push({id:Date.now(),text:msg});renderNotifs();document.getElementById("bellWrap").style.display="block";}
-function renderNotifs(){document.getElementById("notifStrip").innerHTML=notifs.map(n=>`<div class="notif-item"><span class="notif-text">${n.text}</span><button style="background:none;border:none;color:var(--text-3);font-size:18px;cursor:pointer" onclick="dismissNotif(${n.id})">×</button></div>`).join("");}
-function dismissNotif(id){notifs=notifs.filter(n=>n.id!==id);renderNotifs();if(!notifs.length)document.getElementById("bellWrap").style.display="none";}
-function clearNotifs(){notifs=[];renderNotifs();document.getElementById("bellWrap").style.display="none";}
-
-/* ══════════════════ DASHBOARD ══════════════════ */
-function buildDashData(){
-  // Build stats from real todos + seed realistic demo data if sparse
-  const allTodos=todos.length>0?todos:[];
-  const realDone=allTodos.filter(t=>t.done).length;
-  const realTotal=allTodos.length;
-
-  // Last 7 days
-  const last7=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const ds=d.toISOString().split("T")[0];
-    const dayTodos=allTodos.filter(t=>t.date===ds);
-    // demo fill for empty days
-    const base=[5,7,4,8,6,3,dayTodos.length||0];
-    const doneBase=[4,5,2,8,4,1,dayTodos.filter(t=>t.done).length||0];
-    const total=dayTodos.length||base[6-i];
-    const done=dayTodos.length?dayTodos.filter(t=>t.done).length:doneBase[6-i];
-    last7.push({label:d.toLocaleDateString("en-US",{weekday:"short"}),date:ds,total,done,pct:total?Math.round(done/total*100):0});
-  }
-
-  // Categories
-  const catMap={};
-  allTodos.forEach(t=>{const c=t.category||"other";catMap[c]=(catMap[c]||0)+1;});
-  if(Object.keys(catMap).length===0){Object.assign(catMap,{work:12,personal:8,health:5,learning:4,other:3});}
-  const categories=Object.entries(catMap).map(([c,n])=>({category:c,total:n})).sort((a,b)=>b.total-a.total);
-
-  // Priorities
-  const priMap={high:0,medium:0,low:0};
-  allTodos.forEach(t=>{const p=t.priority||"medium";priMap[p]=(priMap[p]||0)+1;});
-  if(allTodos.length===0){priMap.high=6;priMap.medium=18;priMap.low=8;}
-  const priorities=Object.entries(priMap).map(([p,n])=>({priority:p,total:n}));
-
-  // Streak (days consecutive with ≥1 done task)
-  let streak=0;
-  for(let i=0;i<30;i++){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const ds=d.toISOString().split("T")[0];
-    const dayDone=allTodos.filter(t=>t.date===ds&&t.done).length;
-    if(dayDone>0||i===0){if(i===0&&dayDone===0&&streak===0)break;streak++;}else break;
-  }
-  if(streak===0&&allTodos.length===0)streak=4; // demo
-
-  const allTotal=realTotal||32;
-  const allDone=realDone||22;
-  const avgPct=Math.round(last7.reduce((s,d)=>s+d.pct,0)/7);
-
-  return{last7,categories,priorities,streak,allTotal,allDone,avgPct};
-}
-
-/* SVG Pie / Donut chart */
-function buildPieSVG(slices,cx,cy,r,hole,total){
-  let start=0,paths="";
+function pieSVG(slices,cx,cy,r,hole,total){
+  if(!total||slices.every(s=>!s.val))return`<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--border)"/>`;
+  let start=0,p="";
   slices.forEach(s=>{
-    const pct=s.val/total;const angle=pct*Math.PI*2;
-    const x1=cx+Math.sin(start)*r,y1=cy-Math.cos(start)*r;
-    start+=angle;
+    if(!s.val)return;const pct=s.val/total;const ang=pct*Math.PI*2;
+    const x1=cx+Math.sin(start)*r,y1=cy-Math.cos(start)*r;start+=ang;
     const x2=cx+Math.sin(start)*r,y2=cy-Math.cos(start)*r;
-    const large=pct>.5?1:0;
-    const xi1=cx+Math.sin(start-angle)*hole,yi1=cy-Math.cos(start-angle)*hole;
+    const xi1=cx+Math.sin(start-ang)*hole,yi1=cy-Math.cos(start-ang)*hole;
     const xi2=cx+Math.sin(start)*hole,yi2=cy-Math.cos(start)*hole;
-    paths+=`<path d="M${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} L${xi2},${yi2} A${hole},${hole} 0 ${large},0 ${xi1},${yi1} Z" fill="${s.col}" opacity=".88"/>`;
-  });
-  return paths;
+    p+=`<path d="M${x1},${y1} A${r},${r} 0 ${pct>.5?1:0},1 ${x2},${y2} L${xi2},${yi2} A${hole},${hole} 0 ${pct>.5?1:0},0 ${xi1},${yi1} Z" fill="${s.col}" opacity=".92"/>`;
+  });return p;
 }
-
-function loadDashboard(){
-  const D=buildDashData();
-
-  /* ── Stat Cards ── */
-  const stats=[
-    {icon:"📋",label:"Total Tasks",val:D.allTotal,col:"#7c6aff",bg:"#f0eeff",change:"+3 this week"},
-    {icon:"✅",label:"Completed",  val:D.allDone, col:"#22c98b",bg:"#e6f9f2",change:`${Math.round(D.allDone/D.allTotal*100)}% rate`},
-    {icon:"📅",label:"Avg / Day",  val:Math.round(D.allTotal/7),col:"#0ea5a0",bg:"#e6f7f7",change:"tasks created"},
-    {icon:"🎯",label:"Completion", val:D.avgPct+"%",col:"#ff6b47",bg:"#fff0ec",change:"7-day average"},
-  ];
-  document.getElementById("statGrid").innerHTML=stats.map((s,i)=>`
-    <div class="stat-card" style="animation-delay:${i*.07}s">
-      <div style="position:absolute;width:80px;height:80px;border-radius:50%;background:${s.col};right:-20px;top:-20px;opacity:.08"></div>
-      <div class="stat-icon-wrap" style="background:${s.bg}"><span>${s.icon}</span></div>
-      <div class="stat-val" style="color:${s.col}">${s.val}</div>
-      <div class="stat-lbl">${s.label}</div>
-      <div class="stat-change" style="color:${s.col}">${s.change}</div>
-    </div>`).join("");
-
-  /* ── Streak + Completion Rate ── */
-  document.getElementById("streakRow").innerHTML=`
+function renderDash(S){
+  const{last7=[],categories=[],all_total:allT=0,all_done:allD=0,avg_pct:avgPct=0,priorities=[],streak=0,heatmap=[]}=S;
+  const todayD=last7[last7.length-1]||{total:0,done:0,pct:0};
+  const yestD=last7[last7.length-2]||{total:0,done:0,pct:0};
+  const overallRate=allT?Math.round(allD/allT*100):0;
+  const catTotal=categories.reduce((s,c)=>s+c.total,0)||1;
+  const priTotal=priorities.reduce((s,p)=>s+p.total,0)||1;
+  const maxH=Math.max(...heatmap.map(h=>h.done),1);
+  const maxB=Math.max(...last7.map(d=>d.total),1);
+  let html=`
+  <div class="dash-grid" style="margin-top:4px;gap:10px">
+    ${[
+      {icon:"📋",label:"Total Tasks",  val:allT,               col:"#7c6aff",bg:"#f0eeff",sub:`${allD} completed`},
+      {icon:"✅",label:"Done Today",   val:`${todayD.done}/${todayD.total}`,col:"#22c98b",bg:"#e6f9f2",sub:`${todayD.pct}% today`},
+      {icon:"📈",label:"7-Day Rate",   val:avgPct+"%",          col:"#ff6b47",bg:"#fff0ec",sub:"avg completion"},
+      {icon:"🕰",label:"Yesterday",    val:yestD.pct+"%",       col:"#0ea5a0",bg:"#e6f7f7",sub:`${yestD.done}/${yestD.total} done`},
+    ].map((s,i)=>`
+      <div class="stat-card" style="animation-delay:${i*.07}s">
+        <div style="position:absolute;width:70px;height:70px;border-radius:50%;background:${s.col};right:-16px;top:-16px;opacity:.09"></div>
+        <div class="stat-icon-wrap" style="background:${s.bg}">${s.icon}</div>
+        <div class="stat-val" style="color:${s.col}">${s.val}</div>
+        <div class="stat-lbl">${s.label}</div>
+        <div class="stat-change" style="color:${s.col};opacity:.75">${s.sub}</div>
+      </div>`).join("")}
+  </div>
+  <div class="dash-grid" style="margin-top:12px;gap:10px">
     <div class="dash-section" style="margin-top:0">
-      <div class="dash-title">🔥 Current Streak</div>
-      <div class="streak-row">
-        <div class="streak-num">${D.streak}</div>
-        <div class="streak-fire">🔥</div>
+      <div class="dash-title">🔥 Streak</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="streak-num">${streak}</div>
+        <div style="font-size:26px">🔥</div>
         <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text)">day${D.streak!==1?"s":""} in a row</div>
-          <div style="font-size:12px;color:var(--text-3);margin-top:3px">Keep going!</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text)">day${streak!==1?"s":""}</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:2px">${streak>=7?"🏆 Outstanding!":streak>=3?"Keep going!":"Start your streak!"}</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;background:var(--card2);border-radius:var(--r);padding:10px 14px">
+        <div style="font-size:10px;color:var(--text-3);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Overall Progress</div>
+        <div style="height:7px;background:var(--border);border-radius:99px;overflow:hidden">
+          <div style="height:100%;width:${overallRate}%;background:linear-gradient(90deg,var(--coral),#ff9a47);border-radius:99px;transition:width .9s ease"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text-3);font-weight:600">
+          <span>${allD} done</span><span style="color:var(--coral);font-weight:800">${overallRate}%</span><span>${allT} total</span>
         </div>
       </div>
     </div>
     <div class="dash-section" style="margin-top:0">
       <div class="dash-title">📊 Completion Rate</div>
       <div style="display:flex;align-items:center;gap:16px">
-        <div style="position:relative;width:80px;height:80px;flex-shrink:0">
-          <svg width="80" height="80" style="transform:rotate(-90deg)">
-            <circle cx="40" cy="40" r="32" fill="none" stroke="var(--border)" stroke-width="7"/>
-            <circle cx="40" cy="40" r="32" fill="none" stroke="var(--coral)"
-              stroke-width="7" stroke-dasharray="201.1" stroke-dashoffset="${201.1-(D.avgPct/100)*201.1}" stroke-linecap="round"/>
+        <div style="position:relative;width:82px;height:82px;flex-shrink:0">
+          <svg width="82" height="82" style="transform:rotate(-90deg)">
+            <circle cx="41" cy="41" r="33" fill="none" stroke="var(--border)" stroke-width="7"/>
+            <circle cx="41" cy="41" r="33" fill="none" stroke="var(--coral)" stroke-width="7"
+              stroke-dasharray="207.3" stroke-dashoffset="${207.3-(avgPct/100)*207.3}"
+              stroke-linecap="round" style="transition:stroke-dashoffset .9s ease"/>
           </svg>
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:900;color:var(--coral)">${D.avgPct}%</div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:17px;font-weight:900;color:var(--coral)">${avgPct}%</div>
         </div>
-        <div>
-          <div style="font-size:13px;color:var(--text-2);line-height:1.7">${D.allDone} done<br>of ${D.allTotal} total<br><span style="color:var(--text-3);font-size:12px">7-day average</span></div>
+        <div style="font-size:12px;color:var(--text-2);line-height:2">
+          <div><strong style="color:var(--text)">${allD}</strong> done</div>
+          <div><strong style="color:var(--text)">${allT}</strong> total</div>
+          <div style="font-size:11px;color:var(--text-3)">7-day average</div>
         </div>
       </div>
-    </div>`;
-
-  /* ── Bar Chart ── */
-  const maxB=Math.max(...D.last7.map(d=>d.total),1);
-  document.getElementById("barChart").innerHTML=`<div class="dash-title">📅 Last 7 Days</div>
-    <div class="bar-chart">
-    ${D.last7.map(d=>{
-      const col=d.pct>=80?"#22c98b":d.pct>=50?"#e8a020":d.total?"#ff6b47":"var(--border)";
-      const h=d.total?Math.max(Math.round((d.total/maxB)*100),8):6;
-      return `<div class="bar-col">
-        <div class="bar-val-lbl">${d.done}/${d.total}</div>
-        <div class="bar-inner"><div class="bar-fill2" style="height:${h}%;background:${col}"></div></div>
-        <div class="bar-day-lbl">${d.label}</div>
-      </div>`;
-    }).join("")}</div>`;
-
-  /* ── Category Pie Chart ── */
-  const catTotal=D.categories.reduce((s,c)=>s+c.total,0)||1;
-  const catSlices=D.categories.map(c=>({val:c.total,col:CAT_COL[c.category]||"#9aa3b0"}));
-  document.getElementById("pieChart").innerHTML=`<div class="dash-title">🍕 By Category</div>
-    <div class="pie-wrap">
-      <svg width="120" height="120" viewBox="0 0 120 120">
-        ${catTotal>0?buildPieSVG(catSlices,60,60,54,28,catTotal):`<circle cx="60" cy="60" r="54" fill="var(--border)"/>`}
-        <circle cx="60" cy="60" r="28" fill="var(--card)"/>
-        <text x="60" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text-3)" font-family="Plus Jakarta Sans">${catTotal}</text>
-        <text x="60" y="75" text-anchor="middle" font-size="8" fill="var(--text-3)" font-family="Plus Jakarta Sans">tasks</text>
-      </svg>
-      <div class="pie-legend">
-        ${D.categories.map(c=>{const pct=Math.round(c.total/catTotal*100);const col=CAT_COL[c.category]||"#9aa3b0";return `<div class="legend-row"><div class="legend-dot" style="background:${col}"></div><span class="legend-label">${c.category}</span><span class="legend-val">${c.total}</span><span class="legend-pct">${pct}%</span></div>`;}).join("")}
-      </div>
-    </div>`;
-
-  /* ── Priority Donut ── */
-  const priTotal=D.priorities.reduce((s,p)=>s+p.total,0)||1;
-  const priSlices=D.priorities.map(p=>({val:p.total,col:PRI_COL[p.priority]||"#9aa3b0"}));
-  document.getElementById("priorityChart").innerHTML=`<div class="dash-title">⚡ By Priority</div>
-    <div class="pie-wrap">
-      <svg width="110" height="110" viewBox="0 0 110 110">
-        ${buildPieSVG(priSlices,55,55,50,26,priTotal)}
-        <circle cx="55" cy="55" r="26" fill="var(--card)"/>
-        <text x="55" y="59" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-3)" font-family="Plus Jakarta Sans">${priTotal} total</text>
-      </svg>
-      <div class="pie-legend">
-        ${D.priorities.map(p=>{const pct=Math.round(p.total/priTotal*100);const col=PRI_COL[p.priority]||"#9aa3b0";return `<div class="legend-row"><div class="legend-dot" style="background:${col}"></div><span class="legend-label">${p.priority}</span><span class="legend-val">${p.total}</span><span class="legend-pct">${pct}%</span></div>`;}).join("")}
-      </div>
-    </div>`;
-
-  /* ── Activity Heatmap ── */
-  const heat=[];for(let i=27;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const ds=d.toISOString().split("T")[0];const done=todos.filter(t=>t.date===ds&&t.done).length||(Math.random()>0.3?Math.floor(Math.random()*6):0);heat.push({date:ds,done});}
-  const maxH=Math.max(...heat.map(h=>h.done),1);
-  document.getElementById("heatmapChart").innerHTML=`<div class="dash-title">📆 Activity Heatmap <span style="font-size:10px;font-weight:500">(28 days)</span></div>
-    <div class="heatmap">
-      ${heat.map(h=>{const intensity=h.done/maxH;const col=h.done===0?"var(--border)":intensity<.33?"#ffd4c9":intensity<.66?"#ff9f85":"#ff6b47";return `<div class="heat-cell" style="background:${col}" title="${h.date}: ${h.done} tasks done"></div>`;}).join("")}
     </div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:12px">
-      <span style="font-size:11px;color:var(--text-3)">Less</span>
-      ${["var(--border)","#ffd4c9","#ff9f85","#ff6b47"].map(c=>`<div style="width:14px;height:14px;border-radius:3px;background:${c}"></div>`).join("")}
-      <span style="font-size:11px;color:var(--text-3)">More</span>
-    </div>`;
-
-  /* ── Weekly Rings ── */
-  document.getElementById("ringChart").innerHTML=`<div class="dash-title">💫 Weekly Completion Rings</div>
-    <div style="display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap">
-    ${D.last7.map(d=>{const col=d.pct>=80?"#22c98b":d.pct>=50?"#e8a020":d.total?"#ff6b47":"var(--text-3)";const offset=175.9-(d.pct/100)*175.9;return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-      <div style="position:relative;width:58px;height:58px">
-        <svg width="58" height="58" style="transform:rotate(-90deg)">
-          <circle cx="29" cy="29" r="24" fill="none" stroke="var(--border)" stroke-width="5"/>
-          <circle cx="29" cy="29" r="24" fill="none" stroke="${col}" stroke-width="5" stroke-dasharray="150.8" stroke-dashoffset="${150.8-(d.pct/100)*150.8}" stroke-linecap="round" style="transition:stroke-dashoffset .8s ease"/>
+  </div>
+  <div class="dash-grid" style="margin-top:12px;gap:10px">
+    <div class="dash-section" style="margin-top:0">
+      <div class="dash-title">📅 Last 7 Days</div>
+      <div class="bar-chart">
+        ${last7.map(d=>{const col=d.pct>=80?"#22c98b":d.pct>=50?"#e8a020":d.total?"#ff6b47":"var(--border)";const h=d.total?Math.max(Math.round(d.total/maxB*100),8):5;return `<div class="bar-col"><div class="bar-val-lbl">${d.total?`${d.done}/${d.total}`:"-"}</div><div class="bar-inner"><div class="bar-fill2" style="height:${h}%;background:${col}"></div></div><div class="bar-day-lbl">${d.label}</div></div>`;}).join("")}
+      </div>
+    </div>
+    <div class="dash-section" style="margin-top:0">
+      <div class="dash-title">🍕 By Category</div>
+      ${categories.length
+        ?`<div class="pie-wrap">
+            <svg width="108" height="108" viewBox="0 0 108 108" style="flex-shrink:0">
+              ${pieSVG(categories.map(c=>({val:c.total,col:CAT_COL[c.category]||"#9aa3b0"})),54,54,48,23,catTotal)}
+              <circle cx="54" cy="54" r="23" fill="var(--card)"/>
+              <text x="54" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text-3)" font-family="Plus Jakarta Sans,sans-serif">${catTotal}</text>
+            </svg>
+            <div class="pie-legend">
+              ${categories.slice(0,5).map(c=>{const pct=Math.round(c.total/catTotal*100);const col=CAT_COL[c.category]||"#9aa3b0";return `<div class="legend-row"><div class="legend-dot" style="background:${col}"></div><span class="legend-label">${c.category}</span><span class="legend-val">${c.total}</span><span class="legend-pct">${pct}%</span></div>`;}).join("")}
+            </div>
+          </div>`
+        :`<div style="text-align:center;padding:28px;color:var(--text-3);font-size:13px">No tasks yet</div>`}
+    </div>
+  </div>
+  <div class="dash-grid" style="margin-top:12px;gap:10px">
+    <div class="dash-section" style="margin-top:0">
+      <div class="dash-title">⚡ By Priority</div>
+      <div class="pie-wrap">
+        <svg width="108" height="108" viewBox="0 0 108 108" style="flex-shrink:0">
+          ${pieSVG(priorities.map(p=>({val:p.total,col:PRI_COL[p.priority]||"#9aa3b0"})),54,54,48,23,priTotal)}
+          <circle cx="54" cy="54" r="23" fill="var(--card)"/>
+          <text x="54" y="56" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text-3)" font-family="Plus Jakarta Sans,sans-serif">${priTotal} tasks</text>
         </svg>
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:${col};font-family:var(--font-display)">${d.pct}%</div>
+        <div class="pie-legend">
+          ${priorities.map(p=>{const pct=Math.round(p.total/priTotal*100);const col=PRI_COL[p.priority]||"#9aa3b0";return `<div class="legend-row"><div class="legend-dot" style="background:${col}"></div><span class="legend-label">${p.priority}</span><span class="legend-val">${p.total}</span><span class="legend-pct">${pct}%</span></div>`;}).join("")}
+        </div>
       </div>
-      <div style="font-size:10px;color:var(--text-3);font-weight:700">${d.label}</div>
-      <div style="font-size:10px;color:var(--text-3)">${d.done}/${d.total}</div>
-    </div>`;}).join("")}</div>`;
-
-  /* ── Insight ── */
-  const tip=D.avgPct>=80
-    ?{e:"🚀",h:"You're on fire!",b:"Outstanding consistency. Your 7-day average is "+D.avgPct+"% — keep time-blocking your high-priority tasks first thing in the morning."}
-    :D.avgPct>=50
-    ?{e:"📈",h:"Good momentum",b:"You're completing "+D.avgPct+"% of tasks on average. Try batching similar tasks together and tackling high-priority items before lunch."}
-    :{e:"🎯",h:"Start strong",b:"Pick just 3 must-do tasks each morning and complete those first. Small wins compound into big streaks."};
-  document.getElementById("insightBox").innerHTML=`
-    <div style="display:flex;gap:14px;align-items:flex-start">
-      <div style="font-size:28px;line-height:1;flex-shrink:0">${tip.e}</div>
-      <div>
-        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;margin-bottom:6px">${tip.h}</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7">${tip.b}</div>
+    </div>
+    <div class="dash-section" style="margin-top:0">
+      <div class="dash-title">📆 Heatmap <span style="font-size:10px;font-weight:400;opacity:.7">(28d)</span></div>
+      <div class="heatmap">
+        ${heatmap.map(h=>{const i=h.done/maxH;const col=h.done===0?"var(--border)":i<.33?"#ffd4c9":i<.66?"#ff9f85":"#ff6b47";return `<div class="heat-cell" style="background:${col}" title="${h.date}: ${h.done} done of ${h.total}"></div>`;}).join("")}
       </div>
-    </div>`;
+      <div style="display:flex;align-items:center;gap:5px;margin-top:10px">
+        <span style="font-size:10px;color:var(--text-3)">Less</span>
+        ${["var(--border)","#ffd4c9","#ff9f85","#ff6b47"].map(c=>`<div style="width:13px;height:13px;border-radius:3px;background:${c}"></div>`).join("")}
+        <span style="font-size:10px;color:var(--text-3)">More</span>
+      </div>
+    </div>
+  </div>
+  <div class="dash-section" style="margin-top:12px">
+    <div class="dash-title">💫 Weekly Rings</div>
+    <div style="display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap">
+      ${last7.map(d=>{const col=d.pct>=80?"#22c98b":d.pct>=50?"#e8a020":d.total?"#ff6b47":"var(--text-3)";return `<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><div style="position:relative;width:56px;height:56px"><svg width="56" height="56" style="transform:rotate(-90deg)"><circle cx="28" cy="28" r="23" fill="none" stroke="var(--border)" stroke-width="5"/><circle cx="28" cy="28" r="23" fill="none" stroke="${col}" stroke-width="5" stroke-dasharray="144.5" stroke-dashoffset="${144.5-(d.pct/100)*144.5}" stroke-linecap="round" style="transition:stroke-dashoffset .8s ease"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:${col};font-family:var(--font-display)">${d.pct}%</div></div><div style="font-size:10px;color:var(--text-3);font-weight:700">${d.label}</div><div style="font-size:10px;color:var(--text-3)">${d.done}/${d.total}</div></div>`;}).join("")}
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,var(--navy),var(--navy-2));border-radius:var(--r-lg);padding:22px 24px;margin-top:12px;box-shadow:var(--shadow-lg);animation:fadeIn .4s ease .3s both">
+    ${(()=>{const e=avgPct>=80?"🚀":avgPct>=50?"📈":allT===0?"✦":"🎯";const h=avgPct>=80?"You're crushing it!":avgPct>=50?"Good momentum":allT===0?"Ready when you are":"Start strong";const b=avgPct>=80?`${avgPct}% average — outstanding. Keep time-blocking your high-priority tasks first.`:avgPct>=50?`${avgPct}% average. Batch similar tasks and tackle high-priority items before lunch.`:allT===0?"Add your first task above — your real stats will appear here automatically.":"Pick 3 must-do tasks each morning. Small wins compound into big streaks.";return `<div style="display:flex;gap:14px;align-items:flex-start"><div style="font-size:28px;line-height:1;flex-shrink:0">${e}</div><div><div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;margin-bottom:6px">${h}</div><div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7">${b}</div></div></div>`;})()}
+  </div>`;
+  document.getElementById("dashContent").innerHTML=html;
 }
 
-function setView(v){
-  document.getElementById("viewToday").style.display=v==="today"?"block":"none";
-  document.getElementById("viewDash").style.display=v==="dashboard"?"block":"none";
-  document.getElementById("btnToday").className="view-btn"+(v==="today"?" active":"");
-  document.getElementById("btnDash").className="view-btn"+(v==="dashboard"?" active":"");
-  if(v==="dashboard")loadDashboard();
-}
+/* ─── Utilities ─── */
 function setMicMsg(cls,msg){const el=document.getElementById("micStatus");el.className="mic-hint"+(cls?" "+cls:"");el.textContent=msg;}
 function updateBtn(){const v=document.getElementById("ta").value.trim();document.getElementById("genBtn").className="btn-gen "+(v?"on":"off");}
 function setBtnLoading(on){const b=document.getElementById("genBtn");b.className="btn-gen off";b.innerHTML=on?'<div class="spinner"></div>&nbsp;Generating…':'✦ Generate Tasks with AI';if(!on)updateBtn();}
