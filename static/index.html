@@ -329,6 +329,15 @@ input,textarea,button{outline:none;font-family:var(--font-body)}a{color:var(--co
       <div style="font-size:13px;color:#0a6e69;line-height:1.6"><strong style="color:#074d49">Future day</strong> — planning ahead. Use voice input to schedule.</div>
     </div>
 
+    <!-- Quick Add Task -->
+    <div class="voice-card" id="quickAddCard">
+      <div class="card-label">✏️ Quick Add Task</div>
+      <div style="display:flex;gap:10px;margin-bottom:14px">
+        <input type="text" id="quickInput" class="transcript-area" placeholder="Type a task and press Enter or click Add" style="margin:0;min-height:44px;padding:11px 14px" onkeydown="if(event.key==='Enter'){event.preventDefault();addQuickTask()}"/>
+        <button onclick="addQuickTask()" style="padding:11px 14px;background:var(--coral);color:#fff;border:none;border-radius:var(--r);font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 24px rgba(255,107,71,.5)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Add</button>
+      </div>
+    </div>
+
     <div class="voice-card" id="voiceCard">
       <div class="card-label">🎤 Voice Input</div>
       <div id="modelStatus" class="status-banner warn"><span>⏳</span><span>Checking status…</span></div>
@@ -342,7 +351,10 @@ input,textarea,button{outline:none;font-family:var(--font-body)}a{color:var(--co
       </div>
       <div class="field-label">Transcript / manual input</div>
       <textarea class="transcript-area" id="ta" placeholder='Auto-fills after recording, or type: "Review Q3 at 10am, standup 2pm, gym 6pm…"' oninput="updateBtn()"></textarea>
-      <button class="btn-gen off" id="genBtn" onclick="generate()">✦ Generate Tasks with AI</button>
+      <div style="display:flex;gap:10px">
+        <button class="btn-gen off" id="genBtn" style="flex:1" onclick="generate()">✦ Generate Tasks with AI</button>
+        <button class="btn-gen off" id="quickVoiceBtn" style="flex:1" onclick="addQuickTaskFromVoice()">➕ Add as Task</button>
+      </div>
     </div>
 
     <div id="todoList"></div>
@@ -502,9 +514,13 @@ function stopWave(){clearInterval(waveT);document.querySelectorAll(".wave-bar").
 async function toggleRec(){if(recording){stopRec();return;}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});chunks=[];const mime=MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":MediaRecorder.isTypeSupported("audio/webm")?"audio/webm":"audio/ogg";mediaRec=new MediaRecorder(stream,{mimeType:mime});mediaRec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};mediaRec.onstop=()=>{stream.getTracks().forEach(t=>t.stop());sendAudio(mime);};mediaRec.start(200);recording=true;micState("recording","⏹");setMicMsg("rec","Recording… tap ⏹ to stop");document.getElementById("voiceCard").style.borderColor="rgba(255,107,71,.4)";startWave();}catch{showToast("❌ Microphone access denied");}}
 function stopRec(){mediaRec?.stop();recording=false;micState("loading","");setMicMsg("proc","Processing…");document.getElementById("voiceCard").style.borderColor="var(--border)";stopWave();}
 function micState(cls,icon){const b=document.getElementById("micBtn");b.className="mic-btn "+cls;b.innerHTML=cls==="loading"?'<div class="spinner"></div>':icon;}
-async function sendAudio(mime){const blob=new Blob(chunks,{type:mime});const form=new FormData();form.append("audio",blob,"recording"+(mime.includes("ogg")?".ogg":".webm"));try{const r=await fetch("/api/transcribe",{method:"POST",body:form});if(!r.ok)throw new Error(`Server ${r.status}`);const d=await r.json();if(d.error)throw new Error(d.error);if(!d.transcript?.trim())throw new Error("No speech detected");document.getElementById("ta").value=d.transcript;updateBtn();setMicMsg("","✅ Transcribed");showToast("✅ "+d.transcript.slice(0,55));await generate();}catch(e){setMicMsg("","⚠️ "+e.message);showToast("❌ "+e.message);}finally{micState("idle","🎤");}}
+async function sendAudio(mime){const blob=new Blob(chunks,{type:mime});const form=new FormData();form.append("audio",blob,"recording"+(mime.includes("ogg")?".ogg":".webm"));try{const r=await fetch("/api/transcribe",{method:"POST",body:form});if(!r.ok)throw new Error(`Server ${r.status}`);const d=await r.json();if(d.error)throw new Error(d.error);if(!d.transcript?.trim())throw new Error("No speech detected");document.getElementById("ta").value=d.transcript;updateBtn();setMicMsg("","✅ Transcribed");showToast("✅ "+d.transcript.slice(0,55));}catch(e){setMicMsg("","⚠️ "+e.message);showToast("❌ "+e.message);}finally{micState("idle","🎤");}}
 async function generate(){const text=document.getElementById("ta").value.trim();if(!text){showToast("Type or record something first!");return;}setBtnLoading(true);try{const r=await fetch("/api/generate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text,date:selectedDate})});if(!r.ok)throw new Error(`Server ${r.status}`);const d=await r.json();if(d.error)throw new Error(d.error);const nt=(d.todos||[]).map(t=>({...t,date:t.date||selectedDate}));if(!nt.length){showToast("⚠️ No tasks found");return;}todos=[...todos,...nt];lsSave();document.getElementById("ta").value="";updateBtn();renderForDate();showToast(`✅ Created ${nt.length} task${nt.length>1?"s":""}`);}catch(e){showToast("❌ "+e.message);}finally{setBtnLoading(false);}}
 
+/* ── Quick Add Task ── */
+function addQuickTask(){const inp=document.getElementById("quickInput");const text=inp.value.trim();if(!text){showToast("Type a task first!");return;}const uid="t-"+Date.now()+"-"+Math.random().toString(36).slice(2,9);todos.push({id:uid,text,date:selectedDate,done:false,priority:"medium",category:"other"});lsSave();inp.value="";renderForDate();showToast("✅ Task added!");document.getElementById("quickInput").focus();}
+
+function addQuickTaskFromVoice(){const ta=document.getElementById("ta");const text=ta.value.trim();if(!text){showToast("Transcribe or type something first!");return;}const uid="t-"+Date.now()+"-"+Math.random().toString(36).slice(2,9);todos.push({id:uid,text,date:selectedDate,done:false,priority:"medium",category:"other"});lsSave();ta.value="";updateBtn();renderForDate();showToast("✅ Task added from voice!");}
 /* ═══════════════════════════════════════════════
    DASHBOARD — Day / Week / Month / Year
 ═══════════════════════════════════════════════ */
@@ -746,8 +762,8 @@ function pieSVG(slices,cx,cy,r,hole,total){
 
 /* ── Utilities ── */
 function setMicMsg(cls,msg){const el=document.getElementById("micStatus");el.className="mic-hint"+(cls?" "+cls:"");el.textContent=msg;}
-function updateBtn(){document.getElementById("genBtn").className="btn-gen "+(document.getElementById("ta").value.trim()?"on":"off");}
-function setBtnLoading(on){const b=document.getElementById("genBtn");b.className="btn-gen off";b.innerHTML=on?'<div class="spinner"></div>&nbsp;Generating…':'✦ Generate Tasks with AI';if(!on)updateBtn();}
+function updateBtn(){const hasText=document.getElementById("ta").value.trim();document.getElementById("genBtn").className="btn-gen "+(hasText?"on":"off");document.getElementById("quickVoiceBtn").className="btn-gen "+(hasText?"on":"off");}
+function setBtnLoading(on){const b=document.getElementById("genBtn");const qb=document.getElementById("quickVoiceBtn");b.className="btn-gen off";qb.className="btn-gen off";if(on){b.innerHTML='<div class="spinner"></div>&nbsp;Generating…';qb.innerHTML='<div class="spinner"></div>&nbsp;Adding…';}else{updateBtn();}}
 let toastT=null;
 function showToast(msg){const el=document.getElementById("toast");el.textContent=msg;el.style.display="block";clearTimeout(toastT);toastT=setTimeout(()=>el.style.display="none",4200);}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
